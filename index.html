@@ -8,247 +8,102 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
-    :root {
-      --bg:#0b1220;
-      --primary:#f5b400;
-      --text:#ffffff;
-      --muted:#d1d5db;
-      --glass: rgba(255,255,255,.08);
-      --shadow: 0 10px 30px rgba(0,0,0,.35);
+    :root{
+      --bg:#0b1220; --primary:#f5b400; --text:#fff; --muted:#d1d5db;
+      --glass:rgba(255,255,255,.08); --shadow:0 10px 30px rgba(0,0,0,.35);
     }
+    html{scroll-behavior:smooth}
+    body{margin:0;font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden}
 
-    html { scroll-behavior: smooth; }
+    /* Barra de contacto */
+    .contact-bar{
+      background:linear-gradient(90deg,#003366,#001a33);
+      color:#fff;font-weight:600;font-size:.95rem;padding:10px 0;
+      border-bottom:2px solid var(--primary);
+      position:fixed; top:0;left:0;right:0; z-index:4000; text-align:center;
+    }
+    .contact-bar a{color:#ffd166;text-decoration:none;font-weight:700}
 
-    body {
-      margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      overflow-x: hidden;
+    /* Nav */
+    .nav{
+      position:fixed; left:0; right:0; top:60px; height:80px;
+      display:flex; align-items:center; justify-content:center;
+      background:rgba(0,0,0,.55); backdrop-filter:blur(8px);
+      border-bottom:2px solid rgba(245,180,0,.4);
+      box-shadow:0 6px 18px rgba(245,180,0,.25); z-index:3500;
     }
+    .nav .container{
+      width:min(1100px,100%); display:flex; justify-content:space-between; align-items:center; gap:12px; padding:0 16px;
+    }
+    .brand{display:flex;align-items:center;gap:12px}
+    .brand img{height:52px}
 
-    /* ===== Barra de contacto ===== */
-    .contact-bar {
-      background: linear-gradient(90deg, #003366, #001a33);
-      color: #fff;
-      font-weight: 600;
-      font-size: .95rem;
-      padding: 10px 0;
-      border-bottom: 2px solid #f5b400;
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 4000; /* encima de todo */
-      text-align: center;
+    /* Links */
+    .navlinks{display:flex;gap:18px;align-items:center}
+    .navlinks a{color:var(--text);padding:8px 12px;border-radius:10px;text-decoration:none;display:flex;gap:6px;transition:.25s}
+    .navlinks a:hover{background:var(--glass)}
+    .dropdown{position:relative;display:inline-block}
+    .arrow{font-size:.75rem;transition:transform .25s}
+    .dropdown:hover .arrow{transform:rotate(180deg)}
+    .dropdown-content{
+      display:none; position:absolute; top:42px; left:0; min-width:280px;
+      background:rgba(20,20,30,.95); border-radius:12px; padding:10px 0; box-shadow:0 8px 20px rgba(0,0,0,.4); z-index:99;
+      flex-direction:column;
     }
-    .contact-bar a { color: #ffd166; text-decoration: none; font-weight: 700; }
+    .dropdown-content a,.dropdown-content p{padding:10px 16px; color:var(--text); text-align:center; text-decoration:none; border-radius:8px}
+    .dropdown-content a:hover{background:var(--primary); color:#000}
+    .dropdown:hover .dropdown-content{display:flex}
 
-    /* ===== Menú principal ===== */
-    .nav {
-      position: fixed;
-      top: 60px;
-      left: 0;
-      right: 0;
-      height: 80px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(0,0,0,0.55);
-      backdrop-filter: blur(8px);
-      z-index: 3500;
-      box-shadow: 0 6px 18px rgba(245,180,0,0.25);
-      border-bottom: 2px solid rgba(245,180,0,0.4);
-    }
-    .nav .container {
-      width: min(1100px, 100%);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0 20px;
-      gap: 12px;
-    }
-    .brand { display: flex; align-items: center; gap: 12px; font-weight: 700; }
-    .brand img { height: 52px; margin-top: 8px; }
+    /* Botones */
+    .btn-offer,.btn-ruta{position:relative;display:inline-block;background:var(--primary);color:#000;padding:10px 16px;border-radius:10px;font-weight:700;text-decoration:none;box-shadow:0 0 10px rgba(245,180,0,.4);overflow:hidden;transition:.25s}
+    .btn-offer::before,.btn-ruta::before{content:"";position:absolute;top:0;left:-75%;width:50%;height:100%;background:linear-gradient(120deg,rgba(255,255,255,.6),transparent,rgba(255,255,255,.2));transform:skewX(-25deg);transition:.6s}
+    .btn-offer:hover::before,.btn-ruta:hover::before{left:125%}
+    .btn-offer:hover,.btn-ruta:hover{background:#fff3b0;transform:scale(1.03)}
 
-    /* Botón hamburguesa */
-    .menu-toggle {
-      display: none;
-      background: none;
-      border: none;
-      color: var(--text);
-      font-size: 1.6rem;
-      cursor: pointer;
-      padding: 8px 12px;
-      border-radius: 10px;
-    }
+    /* Hero */
+    .hero{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:180px 20px 60px;text-align:center;position:relative;overflow:hidden}
+    .hero::before{content:"";position:absolute;inset:0;background:linear-gradient(120deg,#0b1220,#1e3c72,#2a5298,#f5b400);background-size:300% 300%;animation:gm 15s ease-in-out infinite;z-index:-1}
+    @keyframes gm{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+    .hero h1{font-size:2.4rem;margin:.2em 0;color:var(--primary);text-shadow:0 0 15px rgba(245,180,0,.7);font-weight:800}
+    .hero p{max-width:680px;margin:18px auto;color:var(--muted)}
 
-    .navlinks { display: flex; gap: 18px; align-items: center; }
-    .navlinks a {
-      color: var(--text);
-      padding: 8px 12px;
-      border-radius: 10px;
-      transition: .3s;
-      text-decoration: none;
-      position: relative;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
-    .navlinks a:hover { background: var(--glass); }
+    /* Cards */
+    .section{padding:80px 20px}
+    .section h2{font-size:2rem;margin:0 auto 24px;text-align:center}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;width:min(1100px,100%);margin:0 auto}
+    .card{background:var(--glass);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:22px;box-shadow:var(--shadow);backdrop-filter:blur(6px);transition:.2s}
+    .card:hover{transform:translateY(-4px);background:rgba(255,255,255,.12)}
 
-    .arrow {
-      font-size: 0.7rem;
-      transition: transform 0.3s ease;
-      display: inline-block;
-      transform: rotate(0deg);
-    }
-    .dropdown:hover .arrow { transform: rotate(180deg); }
+    /* Footer */
+    footer{border-top:1px solid rgba(255,255,255,.2);padding:20px;text-align:center;color:var(--muted);background:rgba(0,0,0,.3)}
+    footer a{display:inline-block;margin-top:10px;color:#ffd166;text-decoration:none;font-weight:600}
+    footer a:hover{color:#fff;text-shadow:0 0 10px rgba(245,180,0,.8)}
 
-    .dropdown { position: relative; display: inline-block; }
-    .dropdown-content {
-      display: none;
-      position: absolute;
-      top: 40px; left: 0;
-      background: rgba(20, 20, 30, 0.9);
-      border-radius: 12px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-      min-width: 280px;
-      z-index: 99;
-      flex-direction: column;
-      padding: 10px 0;
-    }
-    .dropdown-content a, .dropdown-content p {
-      padding: 10px 16px; color: var(--text); text-decoration: none;
-      display: block; border-radius: 8px; transition: all 0.3s ease;
-      text-align: center;
-    }
-    .dropdown-content a:hover { background: var(--primary); color:#000; }
-    .dropdown:hover .dropdown-content { display: flex; }
+    /* Redes */
+    .social-fixed{position:fixed;bottom:20px;left:20px;display:flex;flex-direction:column;gap:10px;z-index:200}
+    .social-fixed a{color:#fff;font-size:1.35rem;background:rgba(255,255,255,.1);padding:10px;border-radius:50%}
+    .social-fixed a:hover{background:var(--primary);color:#000;transform:scale(1.12)}
 
-    .btn-offer, .btn-ruta {
-      position: relative;
-      display: inline-block;
-      background: var(--primary);
-      color:#000;
-      padding:10px 16px;
-      border-radius:10px;
-      font-weight:700;
-      text-decoration:none;
-      overflow:hidden;
-      transition: all .3s ease;
-      box-shadow: 0 0 10px rgba(245,180,0,0.4);
-    }
-    .btn-offer::before, .btn-ruta::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: -75%;
-      width: 50%;
-      height: 100%;
-      background: linear-gradient(120deg, rgba(255,255,255,0.6), transparent, rgba(255,255,255,0.2));
-      transform: skewX(-25deg);
-      transition: all 0.7s ease;
-    }
-    .btn-offer:hover::before, .btn-ruta:hover::before { left: 125%; }
-    .btn-offer:hover, .btn-ruta:hover {
-      background: #fff3b0;
-      box-shadow: 0 0 20px rgba(245,180,0,0.9);
-      transform: scale(1.05);
-    }
-
-    /* ===== Hero ===== */
-    .hero {
-      min-height:100vh;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:180px 20px 60px;
-      text-align:center;
-      position: relative;
-      overflow: hidden;
-    }
-    .hero::before {
-      content:"";
-      position:absolute; inset:0;
-      background: linear-gradient(120deg, #0b1220, #1e3c72, #2a5298, #f5b400);
-      background-size: 300% 300%;
-      animation: gradientMove 15s ease-in-out infinite;
-      z-index:-1;
-    }
-    @keyframes gradientMove {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-    .hero h1 {
-      font-size:2.8rem; margin:0; color:var(--primary);
-      text-shadow: 0 0 15px rgba(245,180,0,0.7);
-      font-weight:800; letter-spacing:1px;
-    }
-    .hero p { max-width:600px; margin:20px auto; color:var(--muted); }
-
-    .section { padding:80px 20px; }
-    .section h2 { font-size:2rem; margin:0 auto 24px; text-align:center; }
-    .grid {
-      display:grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap:18px; width:min(1100px, 100%); margin:0 auto;
-    }
-    .card {
-      background: var(--glass); border: 1px solid rgba(255,255,255,0.08);
-      border-radius:16px; padding:22px; box-shadow: var(--shadow);
-      backdrop-filter: blur(6px); transition: transform .25s ease, background .25s ease;
-    }
-    .card:hover { transform: translateY(-4px); background: rgba(255,255,255,.12); }
-
-    footer { border-top:1px solid rgba(255,255,255,0.2); padding:20px; text-align:center; color:var(--muted); background:rgba(0,0,0,0.3); }
-    footer a { display:inline-block; margin-top:10px; color:#ffd166; text-decoration:none; font-weight:600; transition:all 0.3s ease; }
-    footer a:hover { color:#fff; text-shadow:0 0 10px rgba(245,180,0,0.8); transform: scale(1.05); }
-
-    .social-fixed {
-      position: fixed; bottom: 20px; left: 20px;
-      display: flex; flex-direction: column; gap: 10px; z-index: 20;
-    }
-    .social-fixed a {
-      color: white; font-size: 1.5rem; background: rgba(255,255,255,0.1);
-      padding: 10px; border-radius: 50%; transition: all 0.3s ease;
-    }
-    .social-fixed a:hover { background: var(--primary); color:#000; transform: scale(1.2); box-shadow: 0 0 10px rgba(245,180,0,0.8); }
-
-    /* ===== Responsive / forzar visibilidad móvil ===== */
-    @media (max-width: 1024px){
-      .menu-toggle{
-        display:block !important;
-        background: rgba(255,255,255,.1);
-        border: none;
-        color: var(--text);
-        font-size: 1.6rem;
-        cursor: pointer;
-        padding:8px 12px;
-        border-radius:10px;
-      }
-      .nav .container{ padding: 0 12px; }
-
+    /* Móvil: botón, menú flotante con z alto y dropdowns por toque */
+    .menu-toggle{display:none;background:rgba(255,255,255,.1);border:0;color:#fff;font-size:1.6rem;padding:8px 12px;border-radius:10px;cursor:pointer}
+    @media (max-width:1024px){
+      .menu-toggle{display:block}
+      .nav .container{padding:0 12px}
       .navlinks{
-        display:none;
-        position:fixed;
-        /* Barra contacto (60) + nav (80) */
-        top:140px; left:16px; right:16px;
-        flex-direction:column; gap:10px;
-        background: rgba(0,0,0,.95);
-        padding:18px; border-radius:14px;
+        display:none; position:fixed; left:16px; right:16px;
+        /* top se ajusta por JS; se da un valor seguro inicial */
+        top:150px;
+        flex-direction:column; gap:10px; padding:18px;
+        background:rgba(0,0,0,.96);
         border:1px solid rgba(255,255,255,.15);
-        z-index: 3000;
+        border-radius:14px; z-index:9999; /* por encima de todo */
+        pointer-events:auto;
       }
-      .navlinks.open{ display:flex !important; }
-
-      /* Dropdowns apilados */
-      .dropdown .dropdown-content{
-        position:static !important;
-        display:none; background:rgba(20,20,30,.95); box-shadow:none; margin:6px 0;
-      }
-      .dropdown.open .dropdown-content{ display:flex !important; }
-      /* Desactiva el hover en móvil, usamos click */
-      .dropdown:hover .dropdown-content{ display:none; }
-      .dropdown:hover .arrow{ transform:none; }
+      .navlinks.open{display:flex !important}
+      .dropdown .dropdown-content{position:static !important; display:none; box-shadow:none; background:rgba(20,20,30,.95); margin:6px 0}
+      .dropdown.open .dropdown-content{display:flex !important}
+      .dropdown:hover .dropdown-content{display:none}
+      .dropdown:hover .arrow{transform:none}
     }
   </style>
 </head>
@@ -262,22 +117,20 @@
   </nav>
 
   <!-- Menú principal -->
-  <nav class="nav">
+  <nav class="nav" aria-label="Principal">
     <div class="container">
       <div class="brand">
-        <img src="LogoMepnew.jpg" alt="Logo MEP"/>
+        <img src="LogoMepnew.jpg" alt="Logo MEP">
       </div>
 
-      <!-- Botón hamburguesa visible en móvil -->
+      <!-- Botón móvil -->
       <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="mainMenu">
-        <i class="fa-solid fa-bars" aria-hidden="true"></i><span style="margin-left:8px;">Menú</span>
+        <i class="fa-solid fa-bars" aria-hidden="true"></i><span style="margin-left:8px">Menú</span>
       </button>
 
-      <!-- Contenedor del menú -->
       <div class="navlinks" id="mainMenu">
         <a href="#">Inicio</a>
 
-        <!-- Ofertas Educativas -->
         <div class="dropdown">
           <a href="#modalidades">Ofertas Educativas <span class="arrow">▼</span></a>
           <div class="dropdown-content">
@@ -287,7 +140,6 @@
           </div>
         </div>
 
-        <!-- Servicios Estudiantiles -->
         <div class="dropdown">
           <a href="#servicios">Servicios Estudiantiles <span class="arrow">▼</span></a>
           <div class="dropdown-content">
@@ -297,7 +149,6 @@
           </div>
         </div>
 
-        <!-- Noticias -->
         <div class="dropdown">
           <a href="#noticias">Noticias <span class="arrow">▼</span></a>
           <div class="dropdown-content">
@@ -311,34 +162,34 @@
   </nav>
 
   <!-- Hero -->
-  <header class="hero">
+  <header class="hero" id="inicio">
     <div>
       <h1>Instituto Profesional de Educación Comunitaria</h1>
       <h1>Santo Domingo</h1>
-      <img src="ipeclogo.png" alt="Logo IPEC" style="margin-top:20px; width:180px;">
+      <img src="ipeclogo.png" alt="Logo IPEC" style="margin-top:20px;width:180px">
       <p>“Saber, Trabajar y Convivir” — Formamos personas integrales con excelencia académica y compromiso social.</p>
     </div>
   </header>
 
-  <!-- Sección Modalidades -->
+  <!-- Ofertas -->
   <section class="section" id="modalidades">
     <h2>Ofertas Educativas</h2>
     <div class="grid">
-      <div class="card" id="plan">
+      <article class="card">
         <h3>Plan de Estudio</h3>
         <p>Garantiza el acceso, la permanencia y aprendizajes significativos en ámbitos académicos y técnicos.</p>
         <a class="btn-offer" href="plandeestudio.pdf" target="_blank" rel="noopener">Ver oferta académica 2026</a>
-      </div>
-      <div class="card" id="carreras">
+      </article>
+      <article class="card">
         <h3>Carreras Técnicas</h3>
         <p>Formación técnica del III Ciclo y Diversificada para insertarse al mundo laboral o continuar estudios.</p>
         <a class="btn-offer" href="ofertaeducativa.jpg" target="_blank" rel="noopener">Ver oferta académica 2026</a>
-      </div>
-      <div class="card" id="cursos">
+      </article>
+      <article class="card">
         <h3>Cursos Libres</h3>
         <p>Programas para jóvenes y personas adultas que buscan actualizar habilidades o aprender algo nuevo.</p>
         <a class="btn-offer" href="cursos.pdf" target="_blank" rel="noopener">Ver oferta académica 2026</a>
-      </div>
+      </article>
     </div>
   </section>
 
@@ -348,27 +199,35 @@
     <a href="https://www.google.com/maps/@10.208346,-84.168281,9z?hl=es&entry=ttu" target="_blank" rel="noopener">🗺️ Mapa del sitio</a>
   </footer>
 
-  <!-- Redes Sociales -->
-  <div class="social-fixed">
-    <a href="https://www.facebook.com/IPECSantoDomingoCr" target="_blank" rel="noopener"><i class="fab fa-facebook-f"></i></a>
-    <a href="mailto:ipec.santodomingocentro@mep.go.cr"><i class="fas fa-envelope"></i></a>
+  <!-- Redes -->
+  <div class="social-fixed" aria-label="Redes sociales">
+    <a href="https://www.facebook.com/IPECSantoDomingoCr" target="_blank" rel="noopener" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+    <a href="mailto:ipec.santodomingocentro@mep.go.cr" aria-label="Correo"><i class="fas fa-envelope"></i></a>
   </div>
 
   <script>
-    // Año dinámico
-    (function(){ 
-      var y = document.getElementById('year'); 
-      if (y) y.textContent = new Date().getFullYear();
-    })();
+    // Año
+    document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Menú móvil y dropdowns por toque
+    // Calcular top real del menú en móvil para que no quede tapado
+    function setMenuTop(){
+      var cb = document.querySelector('.contact-bar');
+      var nv = document.querySelector('.nav');
+      var menu = document.getElementById('mainMenu');
+      if (!cb || !nv || !menu) return;
+      var top = cb.offsetHeight + nv.offsetHeight + 8; // 8px de respiro
+      menu.style.top = top + 'px';
+    }
+    window.addEventListener('load', setMenuTop);
+    window.addEventListener('resize', setMenuTop);
+
+    // Menú móvil
     (function(){
       var menuToggle = document.getElementById('menuToggle');
       var mainMenu   = document.getElementById('mainMenu');
 
       if (!menuToggle || !mainMenu) return;
 
-      // Abrir/cerrar menú
       menuToggle.addEventListener('click', function(e){
         e.stopPropagation();
         var open = mainMenu.classList.toggle('open');
@@ -383,28 +242,19 @@
         }
       });
 
-      // Dropdowns: click en móvil
+      // Dropdowns por toque
       document.querySelectorAll('.dropdown').forEach(function(dd){
         var trigger = dd.querySelector(':scope > a, :scope > button');
         if (!trigger) return;
-
         trigger.addEventListener('click', function(ev){
           if (window.innerWidth <= 1024){
-            // Evita navegación a # y solo abre el panel
             var href = trigger.getAttribute('href') || '';
             if (href.startsWith('#')) ev.preventDefault();
-
-            // Cierra otros dropdowns
             document.querySelectorAll('.dropdown').forEach(function(o){ if (o !== dd) o.classList.remove('open'); });
             dd.classList.toggle('open');
             ev.stopPropagation();
           }
         });
-      });
-
-      // Cierra dropdowns si tocan fuera
-      document.addEventListener('click', function(){
-        document.querySelectorAll('.dropdown.open').forEach(function(o){ o.classList.remove('open'); });
       });
     })();
   </script>
