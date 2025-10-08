@@ -15,6 +15,7 @@
     }
     html{scroll-behavior:smooth}
     body{margin:0;font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden}
+
     /* Barra superior */
     .contact-bar{
       background:linear-gradient(90deg,#003366,#001a33);
@@ -23,6 +24,7 @@
       position:fixed;top:0;left:0;right:0;z-index:4000;text-align:center;
     }
     .contact-bar a{color:#ffd166;text-decoration:none;font-weight:700}
+
     /* Menú principal */
     .nav{
       position:fixed;left:0;right:0;top:60px;height:var(--navH);
@@ -36,35 +38,44 @@
     }
     .brand{display:flex;align-items:center;gap:12px;min-width:220px}
     .brand img{
-      display:block;margin:0 !important;height:auto !important;
-      max-height:calc(var(--navH) - (var(--navPadY)*2)) !important;
+      display:block;margin:0;height:auto;
+      max-height:calc(var(--navH) - (var(--navPadY)*2));
       object-fit:contain;image-rendering:-webkit-optimize-contrast;
     }
+
     /* Enlaces */
     .navlinks{display:flex;gap:18px;align-items:center}
-    .navlinks a{
-      color:var(--text);padding:8px 12px;border-radius:10px;text-decoration:none;
-      display:flex;align-items:center;gap:6px;transition:.25s
-    }
+    .navlinks a{color:var(--text);padding:8px 12px;border-radius:10px;text-decoration:none;display:flex;align-items:center;gap:6px;transition:.25s}
     .navlinks a:hover{background:var(--glass)}
-    /* Dropdown */
-    .dropdown{position:relative;display:inline-block}
-    .dd-link .arrow{font-size:.8rem;margin-left:6px;transition:transform .25s}
-    .dropdown.open .dd-link .arrow{transform:rotate(180deg)}
-    .dropdown-content{
-      display:none;position:absolute;top:42px;left:0;min-width:280px;
-      background:rgba(20,20,30,.95);border-radius:12px;padding:10px 0;
-      box-shadow:0 8px 20px rgba(0,0,0,.4);z-index:99;flex-direction:column;
+
+    /* Dropdown base */
+    .dropdown{position:relative}
+    .dd-trigger{
+      background:transparent;border:0;color:var(--text);cursor:pointer;
+      padding:8px 12px;border-radius:10px;display:flex;align-items:center;gap:8px;font:inherit;
     }
-    .dropdown-content a,.dropdown-content p{
-      padding:10px 16px;color:var(--text);text-align:center;text-decoration:none;border-radius:8px
+    .dd-trigger:hover{background:var(--glass)}
+    .dd-trigger .arrow{font-size:.8rem;transition:transform .25s}
+    .dropdown.open .dd-trigger .arrow{transform:rotate(180deg)}
+
+    .dropdown-panel{
+      display:none; position:absolute; top:42px; left:0; min-width:280px;
+      background:rgba(20,20,30,.95); border-radius:12px; padding:10px 0;
+      box-shadow:0 8px 20px rgba(0,0,0,.4); z-index:99; flex-direction:column;
     }
-    .dropdown-content a:hover{background:var(--primary);color:#000}
-    /* Desktop: hover abre */
+    .dropdown-panel a,.dropdown-panel p{
+      padding:10px 16px; color:var(--text); text-align:center; text-decoration:none; border-radius:8px;
+    }
+    .dropdown-panel a:hover{background:var(--primary); color:#000}
+
+    /* Desktop: abre por hover */
     @media (min-width:1025px){
-      .dropdown:hover .dropdown-content{display:flex}
+      .dd-trigger{display:none}
+      .dropdown:hover .dropdown-panel{display:flex}
+      .dropdown > a.top-link{display:flex}
     }
-    /* Botones */
+
+    /* Botones destacados */
     .btn-offer,.btn-ruta{
       position:relative;display:inline-block;background:var(--primary);color:#000;
       padding:10px 16px;border-radius:10px;font-weight:700;text-decoration:none;
@@ -77,6 +88,7 @@
     }
     .btn-offer:hover::before,.btn-ruta:hover::before{left:125%}
     .btn-offer:hover,.btn-ruta:hover{background:#fff3b0;transform:scale(1.03)}
+
     /* Hero */
     .hero{
       min-height:100vh;display:flex;align-items:center;justify-content:center;
@@ -90,21 +102,25 @@
     @keyframes gm{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
     .hero h1{font-size:2.4rem;margin:.2em 0;color:var(--primary);text-shadow:0 0 15px rgba(245,180,0,.7);font-weight:800}
     .hero p{max-width:680px;margin:18px auto;color:var(--muted)}
+
     /* Secciones */
     .section{padding:80px 20px}
     .section h2{font-size:2rem;margin:0 auto 24px;text-align:center}
     .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;width:min(1100px,100%);margin:0 auto}
     .card{background:var(--glass);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:22px;box-shadow:var(--shadow);backdrop-filter:blur(6px);transition:.2s}
     .card:hover{transform:translateY(-4px);background:rgba(255,255,255,.12)}
+
     /* Footer */
     footer{border-top:1px solid rgba(255,255,255,.2);padding:20px;text-align:center;color:var(--muted);background:rgba(0,0,0,.3)}
     footer a{display:inline-block;margin-top:10px;color:#ffd166;text-decoration:none;font-weight:600}
     footer a:hover{color:#fff;text-shadow:0 0 10px rgba(245,180,0,.8)}
+
     /* Redes */
     .social-fixed{position:fixed;bottom:20px;left:20px;display:flex;flex-direction:column;gap:10px;z-index:200}
     .social-fixed a{color:#fff;font-size:1.35rem;background:rgba(255,255,255,.1);padding:10px;border-radius:50%}
     .social-fixed a:hover{background:var(--primary);color:#000;transform:scale(1.12)}
-    /* Menú móvil */
+
+    /* Móvil: menú + acordeón */
     .menu-toggle{
       display:none;background:#0f172a;border:2px solid #f5b400;color:#fff;
       font-size:1.6rem;padding:10px 14px;border-radius:12px;cursor:pointer;
@@ -115,6 +131,7 @@
       opacity:0;pointer-events:none;transition:opacity .2s ease
     }
     .mobile-backdrop.show{opacity:1;pointer-events:auto}
+
     @media (max-width:1024px){
       :root{--navH:108px}
       .menu-toggle{display:block !important}
@@ -123,14 +140,19 @@
         display:none;position:fixed;left:14px;right:14px;
         top:var(--menuTop,150px);background:#0a1224;border:2px solid #f5b400;
         border-radius:14px;box-shadow:0 20px 50px rgba(0,0,0,.65);
-        padding:14px;gap:10px;z-index:10000;font-size:1.06rem;flex-direction:column;
+        padding:14px;gap:6px;z-index:10000;font-size:1.06rem;flex-direction:column;
       }
       .navlinks.open{display:flex !important}
-      .dropdown .dropdown-content{
-        position:static !important;display:none;background:#0d1b3a;
-        border:1px solid rgba(245,180,0,.45);border-radius:10px;padding:8px 6px;margin:6px 0 2px 0;box-shadow:none;
+
+      /* En móvil: usamos botón acordeón, ocultamos el link superior visible de desktop */
+      .dropdown > a.top-link{display:none}
+      .dd-trigger{display:flex}
+
+      .dropdown-panel{
+        position:static; display:none; background:#0d1b3a;
+        border:1px solid rgba(245,180,0,.45); border-radius:10px; padding:8px 6px; margin:6px 0 2px 0; box-shadow:none;
       }
-      .dropdown.open .dropdown-content{display:flex !important}
+      .dropdown.open .dropdown-panel{display:flex}
     }
   </style>
 </head>
@@ -149,7 +171,7 @@
         <picture>
           <source srcset="LogoMepnew.webp" type="image/webp">
           <source srcset="LogoMepnew.png" type="image/png">
-          <img id="logoMEP" src="LogoMepnew.jpg" alt="Logo MEP" height="64"
+          <img src="LogoMepnew.jpg" alt="Logo MEP" height="64"
                onerror="this.onerror=null;this.src='LogoMepnew.png';" />
         </picture>
       </div>
@@ -161,27 +183,39 @@
       <div class="navlinks" id="mainMenu">
         <a href="#inicio">Inicio</a>
 
+        <!-- Ofertas: desktop = link; móvil = acordeón -->
         <div class="dropdown">
-          <a class="dd-link" href="#modalidades">Ofertas Educativas <span class="arrow">▼</span></a>
-          <div class="dropdown-content">
-            <a href="IPEC_Tecnologico.html">🎓 Carrera Técnica</a>
-            <a href="plan.html">📘 Plan de Estudio</a>
-            <a href="cursos.html">🧩 Cursos Libres</a>
+          <a class="top-link" href="#modalidades">Ofertas Educativas</a>
+          <button class="dd-trigger" type="button" aria-expanded="false" aria-controls="dd-ofertas">
+            Ofertas Educativas <span class="arrow">▼</span>
+          </button>
+          <div class="dropdown-panel" id="dd-ofertas" role="menu">
+            <a href="IPEC_Tecnologico.html" role="menuitem">🎓 Carrera Técnica</a>
+            <a href="plan.html" role="menuitem">📘 Plan de Estudio</a>
+            <a href="cursos.html" role="menuitem">🧩 Cursos Libres</a>
           </div>
         </div>
 
+        <!-- Servicios -->
         <div class="dropdown">
-          <a class="dd-link" href="#servicios">Servicios Estudiantiles <span class="arrow">▼</span></a>
-          <div class="dropdown-content">
-            <a href="#comedor">🍽️ Comedor Estudiantil</a>
-            <a href="#transporte">🚌 Servicio de Transporte</a>
-            <a class="btn-ruta" href="rutabus.pdf" target="_blank" rel="noopener">Ver ruta</a>
+          <a class="top-link" href="#servicios">Servicios Estudiantiles</a>
+          <button class="dd-trigger" type="button" aria-expanded="false" aria-controls="dd-serv">
+            Servicios Estudiantiles <span class="arrow">▼</span>
+          </button>
+          <div class="dropdown-panel" id="dd-serv" role="menu">
+            <a href="#comedor" role="menuitem">🍽️ Comedor Estudiantil</a>
+            <a href="#transporte" role="menuitem">🚌 Servicio de Transporte</a>
+            <a class="btn-ruta" href="rutabus.pdf" target="_blank" rel="noopener" role="menuitem">Ver ruta</a>
           </div>
         </div>
 
+        <!-- Noticias -->
         <div class="dropdown">
-          <a class="dd-link" href="#noticias">Noticias <span class="arrow">▼</span></a>
-          <div class="dropdown-content">
+          <a class="top-link" href="#noticias">Noticias</a>
+          <button class="dd-trigger" type="button" aria-expanded="false" aria-controls="dd-news">
+            Noticias <span class="arrow">▼</span>
+          </button>
+          <div class="dropdown-panel" id="dd-news" role="menu">
             <p style="margin:0 10px">📰 Matrícula abierta desde el mes de <strong>Noviembre</strong></p>
           </div>
         </div>
@@ -254,38 +288,26 @@
       function openMenu(){mainMenu.classList.add('open');menuToggle.setAttribute('aria-expanded','true');backdrop.classList.add('show');setMenuTop();}
       function closeMenu(){mainMenu.classList.remove('open');menuToggle.setAttribute('aria-expanded','false');backdrop.classList.remove('show');}
 
-      // Toggle menú
       menuToggle.addEventListener('click',e=>{e.stopPropagation();mainMenu.classList.contains('open')?closeMenu():openMenu();});
-      // Cerrar con backdrop o click fuera
       backdrop.addEventListener('click',closeMenu);
       document.addEventListener('click',e=>{if(!mainMenu.contains(e.target)&&!menuToggle.contains(e.target)) closeMenu();});
 
-      // Abrir submenús en MÓVIL tocando el texto. Primer toque abre; segundo navega.
-      document.querySelectorAll('.dropdown').forEach(dd=>{
-        const link=dd.querySelector(':scope > .dd-link');
-        const panel=dd.querySelector(':scope > .dropdown-content');
-        if(!link||!panel) return;
-
-        link.addEventListener('click',ev=>{
+      // Acordeón móvil
+      document.querySelectorAll('.dd-trigger').forEach(btn=>{
+        btn.addEventListener('click',e=>{
+          // En móvil: abre/cierra panel sin navegar
           if(window.innerWidth<=1024){
-            const wasOpen=dd.classList.contains('open');
-            // Cerrar otros
+            e.preventDefault();
+            const dd=btn.closest('.dropdown');
+            const isOpen=dd.classList.toggle('open');
+            btn.setAttribute('aria-expanded',isOpen?'true':'false');
+            // Cierra otros
             document.querySelectorAll('.dropdown').forEach(o=>{if(o!==dd) o.classList.remove('open');});
-            if(!wasOpen){
-              ev.preventDefault();
-              dd.classList.add('open');
-            }else{
-              // ya estaba abierto: permitir navegación normal del link
-              dd.classList.remove('open');
-              // Si es ancla interna, cerramos menú
-              if(link.getAttribute('href')?.startsWith('#')) closeMenu();
-            }
-            ev.stopPropagation();
           }
         });
       });
 
-      // Cerrar menú al elegir cualquier enlace
+      // Cerrar menú al elegir cualquier enlace del panel en móvil
       document.querySelectorAll('#mainMenu a').forEach(a=>{
         a.addEventListener('click',()=>{ if(window.innerWidth<=1024) closeMenu(); });
       });
