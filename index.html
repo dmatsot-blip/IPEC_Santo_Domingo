@@ -8,149 +8,222 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
-    :root{
-      --bg:#0b1220; --primary:#f5b400; --text:#fff; --muted:#d1d5db;
-      --glass:rgba(255,255,255,.08); --shadow:0 10px 30px rgba(0,0,0,.35);
-      --navH:100px; --navPadY:10px;
+    :root {
+      --bg:#0b1220;
+      --primary:#f5b400;
+      --text:#ffffff;
+      --muted:#d1d5db;
+      --glass:rgba(255,255,255,.08);
+      --shadow:0 10px 30px rgba(0,0,0,.35);
+      --navH:100px;
     }
-    html{scroll-behavior:smooth}
-    body{margin:0;font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden}
 
-    /* Barra superior */
-    .contact-bar{
+    body {
+      margin:0;
+      font-family:'Poppins',sans-serif;
+      background:var(--bg);
+      color:var(--text);
+    }
+
+    /* Barra de contacto */
+    .contact-bar {
       background:linear-gradient(90deg,#003366,#001a33);
-      color:#fff;font-weight:600;font-size:.95rem;padding:10px 0;
+      color:#fff;
+      font-weight:600;
+      font-size:.95rem;
+      padding:10px 0;
       border-bottom:2px solid var(--primary);
-      position:fixed;top:0;left:0;right:0;z-index:4000;text-align:center;
+      position:fixed;
+      top:0;left:0;right:0;
+      z-index:1000;
+      text-align:center;
     }
-    .contact-bar a{color:#ffd166;text-decoration:none;font-weight:700}
+    .contact-bar a { color:#ffd166; text-decoration:none; font-weight:700; }
 
-    /* Menú principal */
-    .nav{
-      position:fixed;left:0;right:0;top:60px;height:var(--navH);
-      display:flex;align-items:center;justify-content:center;
-      background:rgba(0,0,0,.55);backdrop-filter:blur(8px);
+    /* Navegación */
+    .nav {
+      position:fixed;
+      top:60px;left:0;right:0;
+      background:rgba(0,0,0,.55);
+      backdrop-filter:blur(8px);
+      display:flex;
+      justify-content:center;
+      height:var(--navH);
+      z-index:999;
       border-bottom:2px solid rgba(245,180,0,.4);
-      box-shadow:0 6px 18px rgba(245,180,0,.25);z-index:3500;
-    }
-    .nav .container{
-      width:min(1100px,100%);display:flex;justify-content:space-between;align-items:center;gap:12px;padding:0 16px;
-    }
-    .brand{display:flex;align-items:center;gap:12px;min-width:220px}
-    .brand img{
-      display:block;margin:0;height:auto;
-      max-height:calc(var(--navH) - (var(--navPadY)*2));
-      object-fit:contain;image-rendering:-webkit-optimize-contrast;
     }
 
-    /* Enlaces base */
-    .navlinks{display:flex;gap:18px;align-items:center}
-    .navlinks a{color:var(--text);padding:8px 12px;border-radius:10px;text-decoration:none;display:flex;align-items:center;gap:6px;transition:.25s}
-    .navlinks a:hover{background:var(--glass)}
-
-    /* Dropdowns: un solo disparador */
-    .dropdown{position:relative}
-    .dd-trigger{
-      background:transparent;border:0;color:var(--text);cursor:pointer;
-      padding:8px 12px;border-radius:10px;display:flex;align-items:center;gap:8px;font:inherit;
-    }
-    .dd-trigger:hover{background:var(--glass)}
-    .dd-trigger .arrow{font-size:.8rem;transition:transform .25s}
-    .dropdown.open .dd-trigger .arrow{transform:rotate(180deg)}
-
-    .dropdown-panel{
-      display:none; position:absolute; top:42px; left:0; min-width:280px;
-      background:rgba(20,20,30,.95); border-radius:12px; padding:10px 0;
-      box-shadow:0 8px 20px rgba(0,0,0,.4); z-index:99; flex-direction:column;
-    }
-    .dropdown-panel a,.dropdown-panel p{
-      padding:10px 16px; color:var(--text); text-align:center; text-decoration:none; border-radius:8px;
-    }
-    .dropdown-panel a:hover{background:var(--primary); color:#000}
-
-    /* Desktop: abre por hover (sin JS) */
-    @media (min-width:1025px){
-      .dropdown:hover .dropdown-panel{display:flex}
+    .nav .container {
+      width:min(1100px,100%);
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:0 16px;
     }
 
-    /* Botones destacados */
-    .btn-offer,.btn-ruta{
-      position:relative;display:inline-block;background:var(--primary);color:#000;
-      padding:10px 16px;border-radius:10px;font-weight:700;text-decoration:none;
-      box-shadow:0 0 10px rgba(245,180,0,.4);overflow:hidden;transition:.25s;
+    .brand img {
+      max-height:80px;
+      object-fit:contain;
     }
-    .btn-offer::before,.btn-ruta::before{
-      content:"";position:absolute;top:0;left:-75%;width:50%;height:100%;
-      background:linear-gradient(120deg,rgba(255,255,255,.6),transparent,rgba(255,255,255,.2));
-      transform:skewX(-25deg);transition:.6s
+
+    .menu-toggle {
+      display:none;
+      background:#0f172a;
+      border:2px solid #f5b400;
+      color:#fff;
+      font-size:1.5rem;
+      padding:10px 14px;
+      border-radius:10px;
+      cursor:pointer;
     }
-    .btn-offer:hover::before,.btn-ruta:hover::before{left:125%}
-    .btn-offer:hover,.btn-ruta:hover{background:#fff3b0;transform:scale(1.03)}
+
+    .navlinks {
+      display:flex;
+      gap:18px;
+      align-items:center;
+    }
+
+    .navlinks a, .dd-trigger {
+      color:var(--text);
+      text-decoration:none;
+      padding:8px 12px;
+      border-radius:10px;
+      transition:.3s;
+      background:transparent;
+      font:inherit;
+      border:none;
+      cursor:pointer;
+    }
+
+    .navlinks a:hover, .dd-trigger:hover { background:var(--glass); }
+
+    /* Dropdown */
+    .dropdown { position:relative; }
+    .dropdown-panel {
+      display:none;
+      position:absolute;
+      top:40px;
+      left:0;
+      background:rgba(20,20,30,0.95);
+      border-radius:12px;
+      box-shadow:0 8px 20px rgba(0,0,0,0.4);
+      min-width:280px;
+      z-index:99;
+      flex-direction:column;
+      padding:10px 0;
+    }
+    .dropdown-panel a, .dropdown-panel p {
+      padding:10px 16px;
+      color:var(--text);
+      text-decoration:none;
+      display:block;
+      border-radius:8px;
+      text-align:center;
+    }
+    .dropdown-panel a:hover { background:var(--primary); color:#000; }
+
+    @media (min-width:1025px) {
+      .dropdown:hover .dropdown-panel { display:flex; }
+    }
 
     /* Hero */
-    .hero{
-      min-height:100vh;display:flex;align-items:center;justify-content:center;
-      padding:calc(60px + var(--navH) + 40px) 20px 60px;text-align:center;position:relative;overflow:hidden
-    }
-    .hero::before{
-      content:"";position:absolute;inset:0;
+    .hero {
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:calc(120px + var(--navH)) 20px 60px;
+      text-align:center;
       background:linear-gradient(120deg,#0b1220,#1e3c72,#2a5298,#f5b400);
-      background-size:300% 300%;animation:gm 15s ease-in-out infinite;z-index:-1
+      background-size:300% 300%;
+      animation:gradientMove 15s ease-in-out infinite;
     }
-    @keyframes gm{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
-    .hero h1{font-size:2.4rem;margin:.2em 0;color:var(--primary);text-shadow:0 0 15px rgba(245,180,0,.7);font-weight:800}
-    .hero p{max-width:680px;margin:18px auto;color:var(--muted)}
-
-    /* Secciones */
-    .section{padding:80px 20px}
-    .section h2{font-size:2rem;margin:0 auto 24px;text-align:center}
-    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;width:min(1100px,100%);margin:0 auto}
-    .card{background:var(--glass);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:22px;box-shadow:var(--shadow);backdrop-filter:blur(6px);transition:.2s}
-    .card:hover{transform:translateY(-4px);background:rgba(255,255,255,.12)}
-
-    /* Footer */
-    footer{border-top:1px solid rgba(255,255,255,.2);padding:20px;text-align:center;color:var(--muted);background:rgba(0,0,0,.3)}
-    footer a{display:inline-block;margin-top:10px;color:#ffd166;text-decoration:none;font-weight:600}
-    footer a:hover{color:#fff;text-shadow:0 0 10px rgba(245,180,0,.8)}
-
-    /* Redes */
-    .social-fixed{position:fixed;bottom:20px;left:20px;display:flex;flex-direction:column;gap:10px;z-index:200}
-    .social-fixed a{color:#fff;font-size:1.35rem;background:rgba(255,255,255,.1);padding:10px;border-radius:50%}
-    .social-fixed a:hover{background:var(--primary);color:#000;transform:scale(1.12)}
-
-    /* Móvil: menú + acordeón */
-    .menu-toggle{
-      display:none;background:#0f172a;border:2px solid #f5b400;color:#fff;
-      font-size:1.6rem;padding:10px 14px;border-radius:12px;cursor:pointer;
-      box-shadow:0 8px 24px rgba(0,0,0,.4)
+    @keyframes gradientMove {
+      0% { background-position:0% 50%; }
+      50% { background-position:100% 50%; }
+      100% { background-position:0% 50%; }
     }
-    .mobile-backdrop{
-      position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:9990;
-      opacity:0;pointer-events:none;transition:opacity .2s ease
+    .hero h1 {
+      font-size:2.8rem;
+      color:var(--primary);
+      text-shadow:0 0 15px rgba(245,180,0,0.7);
+      font-weight:800;
     }
-    .mobile-backdrop.show{opacity:1;pointer-events:auto}
 
-    @media (max-width:1024px){
-      :root{--navH:108px}
-      .menu-toggle{display:block !important}
-      .nav .container{padding:0 12px}
-      .navlinks{
-        display:none;position:fixed;left:14px;right:14px;
-        top:var(--menuTop,150px);background:#0a1224;border:2px solid #f5b400;
-        border-radius:14px;box-shadow:0 20px 50px rgba(0,0,0,.65);
-        padding:14px;gap:6px;z-index:10000;font-size:1.06rem;flex-direction:column;
-        max-height:calc(100vh - var(--menuTop) - 16px); overflow-y:auto;
+    .section { padding:80px 20px; }
+    .section h2 { text-align:center; font-size:2rem; }
+
+    .grid {
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+      gap:18px;
+      width:min(1100px,100%);
+      margin:0 auto;
+    }
+
+    .card {
+      background:var(--glass);
+      border:1px solid rgba(255,255,255,0.08);
+      border-radius:16px;
+      padding:22px;
+      box-shadow:var(--shadow);
+      backdrop-filter:blur(6px);
+      transition:transform .25s ease;
+    }
+
+    .card:hover { transform:translateY(-4px); background:rgba(255,255,255,.12); }
+
+    footer {
+      border-top:1px solid rgba(255,255,255,0.2);
+      padding:20px;
+      text-align:center;
+      color:var(--muted);
+      background:rgba(0,0,0,0.3);
+    }
+    footer a { color:#ffd166; text-decoration:none; font-weight:600; }
+
+    /* Móvil */
+    .mobile-backdrop {
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,.45);
+      z-index:900;
+      opacity:0;
+      pointer-events:none;
+      transition:.3s;
+    }
+    .mobile-backdrop.show { opacity:1; pointer-events:auto; }
+
+    @media (max-width:1024px) {
+      .menu-toggle { display:block; }
+      .navlinks {
+        display:none;
+        position:fixed;
+        left:10px; right:10px;
+        top:130px;
+        background:#0a1224;
+        border:2px solid #f5b400;
+        border-radius:14px;
+        padding:14px;
+        flex-direction:column;
+        z-index:1000;
       }
-      .navlinks.open{display:flex !important}
+      .navlinks.open { display:flex; }
 
-      .dropdown-panel{
-        position:static; display:none; background:#0d1b3a;
-        border:1px solid rgba(245,180,0,.45); border-radius:10px; padding:8px 6px; margin:6px 0 2px 0; box-shadow:none;
+      .dropdown-panel {
+        position:static;
+        display:none;
+        background:#0d1b3a;
+        border:1px solid rgba(245,180,0,.45);
+        border-radius:10px;
+        padding:8px 6px;
+        margin:6px 0;
       }
-      .dropdown.open .dropdown-panel{display:flex}
+      .dropdown.open .dropdown-panel { display:flex; }
     }
   </style>
 </head>
+
 <body>
   <div class="mobile-backdrop" id="mobileBackdrop"></div>
 
@@ -160,56 +233,39 @@
     </p>
   </nav>
 
-  <nav class="nav" aria-label="Principal">
+  <nav class="nav">
     <div class="container">
       <div class="brand">
-        <picture>
-          <source srcset="LogoMepnew.webp" type="image/webp">
-          <source srcset="LogoMepnew.png" type="image/png">
-          <img src="LogoMepnew.jpg" alt="Logo MEP" height="64"
-               onerror="this.onerror=null;this.src='LogoMepnew.png';" />
-        </picture>
+        <img src="LogoMepnew.jpg" alt="Logo MEP" onerror="this.src='LogoMepnew.png'">
       </div>
 
-      <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="mainMenu">
-        <i class="fa-solid fa-bars"></i><span style="margin-left:8px">Menú</span>
-      </button>
+      <button class="menu-toggle" id="menuToggle"><i class="fa-solid fa-bars"></i></button>
 
       <div class="navlinks" id="mainMenu">
         <a href="#inicio">Inicio</a>
 
-        <!-- Ofertas -->
         <div class="dropdown">
-          <button class="dd-trigger" type="button" aria-expanded="false" aria-controls="dd-ofertas">
-            Ofertas Educativas <span class="arrow">▼</span>
-          </button>
-          <div class="dropdown-panel" id="dd-ofertas" role="menu">
-            <a href="#modalidades" role="menuitem">Sección: Ofertas</a>
-            <a href="IPEC_Tecnologico.html" role="menuitem">🎓 Carrera Técnica</a>
-            <a href="plan.html" role="menuitem">📘 Plan de Estudio</a>
-            <a href="cursos.html" role="menuitem">🧩 Cursos Libres</a>
+          <button class="dd-trigger">Ofertas Educativas <span class="arrow">▼</span></button>
+          <div class="dropdown-panel">
+            <a href="IPEC_Tecnologico.html">🎓 Carrera Técnica</a>
+            <a href="plan.html">📘 Plan de Estudio</a>
+            <a href="cursos.html">🧩 Cursos Libres</a>
           </div>
         </div>
 
-        <!-- Servicios -->
         <div class="dropdown">
-          <button class="dd-trigger" type="button" aria-expanded="false" aria-controls="dd-serv">
-            Servicios Estudiantiles <span class="arrow">▼</span>
-          </button>
-          <div class="dropdown-panel" id="dd-serv" role="menu">
-            <a href="#comedor" role="menuitem">🍽️ Comedor Estudiantil</a>
-            <a href="#transporte" role="menuitem">🚌 Servicio de Transporte</a>
-            <a class="btn-ruta" href="rutabus.pdf" target="_blank" rel="noopener" role="menuitem">Ver ruta</a>
+          <button class="dd-trigger">Servicios Estudiantiles <span class="arrow">▼</span></button>
+          <div class="dropdown-panel">
+            <a href="#comedor">🍽️ Comedor Estudiantil</a>
+            <a href="#transporte">🚌 Servicio de Transporte</a>
+            <a class="btn-ruta" href="rutabus.pdf" target="_blank">Ver ruta</a>
           </div>
         </div>
 
-        <!-- Noticias -->
         <div class="dropdown">
-          <button class="dd-trigger" type="button" aria-expanded="false" aria-controls="dd-news">
-            Noticias <span class="arrow">▼</span>
-          </button>
-          <div class="dropdown-panel" id="dd-news" role="menu">
-            <p style="margin:0 10px">📰 Matrícula abierta desde el mes de <strong>Noviembre</strong></p>
+          <button class="dd-trigger">Noticias <span class="arrow">▼</span></button>
+          <div class="dropdown-panel">
+            <p>📰 Matrícula abierta desde el mes de <strong>Noviembre</strong></p>
           </div>
         </div>
 
@@ -222,7 +278,6 @@
     <div>
       <h1>Instituto Profesional de Educación Comunitaria</h1>
       <h1>Santo Domingo</h1>
-      <img src="ipeclogo.png" alt="Logo IPEC" style="margin-top:20px;width:180px">
       <p>“Saber, Trabajar y Convivir” — Formamos personas integrales con excelencia académica y compromiso social.</p>
     </div>
   </header>
@@ -230,84 +285,58 @@
   <section class="section" id="modalidades">
     <h2>Ofertas Educativas</h2>
     <div class="grid">
-      <article class="card">
+      <div class="card">
         <h3>Plan de Estudio</h3>
-        <p>Garantiza el acceso, la permanencia y aprendizajes significativos en ámbitos académicos y técnicos.</p>
-        <a class="btn-offer" href="plandeestudio.pdf" target="_blank" rel="noopener">Ver oferta académica 2026</a>
-      </article>
-      <article class="card">
+        <p>Garantiza el acceso y aprendizaje significativo.</p>
+        <a class="btn-offer" href="plandeestudio.pdf" target="_blank">Ver oferta 2026</a>
+      </div>
+      <div class="card">
         <h3>Carreras Técnicas</h3>
-        <p>Formación técnica del III Ciclo y Diversificada para insertarse al mundo laboral o continuar estudios.</p>
-        <a class="btn-offer" href="ofertaeducativa.jpg" target="_blank" rel="noopener">Ver oferta académica 2026</a>
-      </article>
-      <article class="card">
+        <p>Formación para el mundo laboral o estudios superiores.</p>
+        <a class="btn-offer" href="ofertaeducativa.jpg" target="_blank">Ver oferta 2026</a>
+      </div>
+      <div class="card">
         <h3>Cursos Libres</h3>
-        <p>Programas para jóvenes y personas adultas que buscan actualizar habilidades o aprender algo nuevo.</p>
-        <a class="btn-offer" href="cursos.pdf" target="_blank" rel="noopener">Ver oferta académica 2026</a>
-      </article>
+        <p>Programas para jóvenes y adultos.</p>
+        <a class="btn-offer" href="cursos.pdf" target="_blank">Ver oferta 2026</a>
+      </div>
     </div>
   </section>
 
   <footer id="contacto">
     <p>© <span id="year"></span> IPEC Santo Domingo, Heredia — Fundado en 1992</p>
-    <a href="https://www.google.com/maps/@10.208346,-84.168281,9z?hl=es&entry=ttu" target="_blank" rel="noopener">🗺️ Mapa del sitio</a>
   </footer>
 
-  <div class="social-fixed" aria-label="Redes sociales">
-    <a href="https://www.facebook.com/IPECSantoDomingoCr" target="_blank" rel="noopener" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-    <a href="mailto:ipec.santodomingocentro@mep.go.cr" aria-label="Correo"><i class="fas fa-envelope"></i></a>
-  </div>
-
   <script>
-    // Año
-    (function(){var y=document.getElementById('year'); if(y) y.textContent=new Date().getFullYear();})();
+    document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Posición del menú móvil
-    function setMenuTop(){
-      const cb=document.querySelector('.contact-bar');
-      const nv=document.querySelector('.nav');
-      const top=(cb?cb.offsetHeight:0)+(nv?nv.offsetHeight:0)+10;
-      document.documentElement.style.setProperty('--menuTop',top+'px');
-    }
-    window.addEventListener('load',setMenuTop);
-    window.addEventListener('resize',setMenuTop);
+    const menuToggle = document.getElementById('menuToggle');
+    const mainMenu = document.getElementById('mainMenu');
+    const backdrop = document.getElementById('mobileBackdrop');
 
-    (function(){
-      const menuToggle=document.getElementById('menuToggle');
-      const mainMenu=document.getElementById('mainMenu');
-      const backdrop=document.getElementById('mobileBackdrop');
-      if(!menuToggle||!mainMenu||!backdrop) return;
+    menuToggle.addEventListener('click', () => {
+      mainMenu.classList.toggle('open');
+      backdrop.classList.toggle('show');
+    });
 
-      function openMenu(){mainMenu.classList.add('open');menuToggle.setAttribute('aria-expanded','true');backdrop.classList.add('show');setMenuTop();}
-      function closeMenu(){mainMenu.classList.remove('open');menuToggle.setAttribute('aria-expanded','false');backdrop.classList.remove('show');}
+    backdrop.addEventListener('click', () => {
+      mainMenu.classList.remove('open');
+      backdrop.classList.remove('show');
+    });
 
-      // Toggle menú
-      menuToggle.addEventListener('click',e=>{e.stopPropagation();mainMenu.classList.contains('open')?closeMenu():openMenu();});
-      backdrop.addEventListener('click',closeMenu);
-      document.addEventListener('click',e=>{if(!mainMenu.contains(e.target)&&!menuToggle.contains(e.target)) closeMenu();});
-
-      // Acordeón móvil (un solo disparador)
-      document.querySelectorAll('.dd-trigger').forEach(btn=>{
-        btn.addEventListener('click',e=>{
-          if(window.innerWidth<=1024){
-            e.preventDefault();
-            const dd=btn.closest('.dropdown');
-            const isOpen=dd.classList.toggle('open');
-            btn.setAttribute('aria-expanded',isOpen?'true':'false');
-            // Cerrar otros
-            document.querySelectorAll('.dropdown').forEach(o=>{if(o!==dd) o.classList.remove('open');});
-          }
-        });
+    // Dropdowns móviles
+    document.querySelectorAll('.dd-trigger').forEach(btn => {
+      btn.addEventListener('click', e => {
+        if (window.innerWidth <= 1024) {
+          e.preventDefault();
+          const parent = btn.closest('.dropdown');
+          const open = parent.classList.toggle('open');
+          document.querySelectorAll('.dropdown').forEach(o => {
+            if (o !== parent) o.classList.remove('open');
+          });
+        }
       });
-
-      // Cerrar menú al elegir enlace en móvil
-      document.querySelectorAll('#mainMenu a').forEach(a=>{
-        a.addEventListener('click',()=>{ if(window.innerWidth<=1024) closeMenu(); });
-      });
-
-      const ro=new ResizeObserver(setMenuTop);
-      document.querySelectorAll('.contact-bar,.nav').forEach(el=>el&&ro.observe(el));
-    })();
+    });
   </script>
 </body>
 </html>
