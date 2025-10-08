@@ -14,7 +14,7 @@
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;font-family:Poppins,system-ui,Arial;background:var(--bg);color:var(--text);}
+body{margin:0;font-family:Poppins,system-ui,Arial;background:var(--bg);color:var(--text)}
 
 /* Barra contacto */
 .contact-bar{
@@ -39,7 +39,8 @@ body{margin:0;font-family:Poppins,system-ui,Arial;background:var(--bg);color:var
 /* Enlaces */
 .navlinks{display:flex; gap:18px; align-items:center}
 .navlinks a, .dd-trigger{
-  color:var(--text); text-decoration:none; padding:8px 12px; border-radius:10px; transition:.25s; background:transparent; border:0; font:inherit; cursor:pointer;
+  color:var(--text); text-decoration:none; padding:8px 12px; border-radius:10px; transition:.25s;
+  background:transparent; border:0; font:inherit; cursor:pointer;
 }
 .navlinks a:hover, .dd-trigger:hover{background:rgba(255,255,255,.08)}
 
@@ -51,7 +52,9 @@ body{margin:0;font-family:Poppins,system-ui,Arial;background:var(--bg);color:var
 }
 .dropdown-panel a,.dropdown-panel p{display:block; padding:10px 16px; text-align:center; color:#fff; text-decoration:none}
 .dropdown-panel a:hover{background:var(--primary); color:#000}
-@media (min-width:1025px){ .dropdown:hover .dropdown-panel{display:flex; flex-direction:column} }
+@media (min-width:1025px){
+  .dropdown:hover .dropdown-panel{display:flex; flex-direction:column}
+}
 
 /* Hero */
 .hero{
@@ -79,7 +82,7 @@ footer{border-top:1px solid rgba(255,255,255,.2); padding:20px; text-align:cente
 }
 .mobile-backdrop.show{opacity:1; pointer-events:auto}
 
-/* Botón menú: FIJO en móvil para que NO desaparezca */
+/* Botón menú fijo en móvil */
 .menu-toggle{
   display:none;
   position:fixed; right:12px; top:calc(60px + 12px); z-index:6000;
@@ -125,7 +128,6 @@ footer{border-top:1px solid rgba(255,255,255,.2); padding:20px; text-align:cente
       <img src="LogoMepnew.jpg" alt="Logo MEP" onerror="this.src='LogoMepnew.png'">
     </div>
 
-    <!-- el botón está FUERA del flujo del container en móvil (position:fixed) -->
     <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="mainMenu">
       <i class="fa-solid fa-bars"></i>
     </button>
@@ -134,8 +136,8 @@ footer{border-top:1px solid rgba(255,255,255,.2); padding:20px; text-align:cente
       <a href="#inicio">Inicio</a>
 
       <div class="dropdown">
-        <button class="dd-trigger" type="button" aria-expanded="false">Ofertas Educativas <span class="arrow">▼</span></button>
-        <div class="dropdown-panel">
+        <button class="dd-trigger" type="button" aria-expanded="false" aria-controls="dd-ofertas">Ofertas Educativas <span class="arrow">▼</span></button>
+        <div class="dropdown-panel" id="dd-ofertas" role="menu">
           <a href="IPEC_Tecnologico.html">🎓 Carrera Técnica</a>
           <a href="plan.html">📘 Plan de Estudio</a>
           <a href="cursos.html">🧩 Cursos Libres</a>
@@ -143,8 +145,8 @@ footer{border-top:1px solid rgba(255,255,255,.2); padding:20px; text-align:cente
       </div>
 
       <div class="dropdown">
-        <button class="dd-trigger" type="button" aria-expanded="false">Servicios Estudiantiles <span class="arrow">▼</span></button>
-        <div class="dropdown-panel">
+        <button class="dd-trigger" type="button" aria-expanded="false" aria-controls="dd-serv">Servicios Estudiantiles <span class="arrow">▼</span></button>
+        <div class="dropdown-panel" id="dd-serv" role="menu">
           <a href="#comedor">🍽️ Comedor Estudiantil</a>
           <a href="#transporte">🚌 Servicio de Transporte</a>
           <a class="btn-ruta" href="rutabus.pdf" target="_blank" rel="noopener">Ver ruta</a>
@@ -152,8 +154,8 @@ footer{border-top:1px solid rgba(255,255,255,.2); padding:20px; text-align:cente
       </div>
 
       <div class="dropdown">
-        <button class="dd-trigger" type="button" aria-expanded="false">Noticias <span class="arrow">▼</span></button>
-        <div class="dropdown-panel">
+        <button class="dd-trigger" type="button" aria-expanded="false" aria-controls="dd-news">Noticias <span class="arrow">▼</span></button>
+        <div class="dropdown-panel" id="dd-news" role="menu">
           <p style="margin:0 10px">📰 Matrícula abierta desde <strong>Noviembre</strong></p>
         </div>
       </div>
@@ -178,17 +180,17 @@ footer{border-top:1px solid rgba(255,255,255,.2); padding:20px; text-align:cente
     <div class="card">
       <h3>Plan de Estudio</h3>
       <p>Acceso y aprendizajes significativos.</p>
-      <a class="dd-trigger" href="plandeestudio.pdf" target="_blank">Ver oferta 2026</a>
+      <a href="plandeestudio.pdf" target="_blank" class="btn-offer">Ver oferta 2026</a>
     </div>
     <div class="card">
       <h3>Carreras Técnicas</h3>
       <p>Inserción laboral o estudios superiores.</p>
-      <a class="dd-trigger" href="ofertaeducativa.jpg" target="_blank">Ver oferta 2026</a>
+      <a href="ofertaeducativa.jpg" target="_blank" class="btn-offer">Ver oferta 2026</a>
     </div>
     <div class="card">
       <h3>Cursos Libres</h3>
       <p>Actualiza habilidades o aprende algo nuevo.</p>
-      <a class="dd-trigger" href="cursos.pdf" target="_blank">Ver oferta 2026</a>
+      <a href="cursos.pdf" target="_blank" class="btn-offer">Ver oferta 2026</a>
     </div>
   </div>
 </section>
@@ -200,7 +202,7 @@ footer{border-top:1px solid rgba(255,255,255,.2); padding:20px; text-align:cente
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-// Calcula top real para el panel móvil
+// Calcula top real del panel móvil
 function setMenuTop(){
   const cb = document.querySelector('.contact-bar');
   const nv = document.querySelector('.nav');
@@ -216,53 +218,47 @@ const menu = document.getElementById('mainMenu');
 const backdrop = document.getElementById('mobileBackdrop');
 
 function openMenu(){
-  menu.classList.add('open');
-  backdrop.classList.add('show');
-  toggle.setAttribute('aria-expanded','true');
-  setMenuTop();
+  menu.classList.add('open'); backdrop.classList.add('show'); toggle.setAttribute('aria-expanded','true'); setMenuTop();
 }
 function closeMenu(){
-  menu.classList.remove('open');
-  backdrop.classList.remove('show');
-  toggle.setAttribute('aria-expanded','false');
+  menu.classList.remove('open'); backdrop.classList.remove('show'); toggle.setAttribute('aria-expanded','false');
 }
-
-toggle.addEventListener('click', e=>{
-  e.stopPropagation();
+function safeToggle(e){
+  e.preventDefault(); e.stopPropagation();
   menu.classList.contains('open') ? closeMenu() : openMenu();
-});
+}
+toggle.addEventListener('click', safeToggle, {passive:false});
+toggle.addEventListener('touchstart', safeToggle, {passive:false});
 backdrop.addEventListener('click', closeMenu);
-document.addEventListener('click', e=>{
-  if (!menu.contains(e.target) && !toggle.contains(e.target)) closeMenu();
-});
+document.addEventListener('click', e=>{ if(!menu.contains(e.target) && !toggle.contains(e.target)) closeMenu(); });
 
-// Submenús móviles como acordeón
+// Submenús móviles como acordeón (click + touchstart)
 document.querySelectorAll('.dd-trigger').forEach(btn=>{
-  btn.addEventListener('click', e=>{
-    // Si es botón de dropdown y estamos en móvil
-    if (btn.getAttribute('type') === 'button' && window.innerWidth <= 1024){
-      e.preventDefault();
-      const dd = btn.closest('.dropdown');
-      const isOpen = dd.classList.toggle('open');
-      btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-      // Cierra otros
-      document.querySelectorAll('.dropdown').forEach(o=>{ if(o!==dd) o.classList.remove('open'); });
-    }
-  });
+  const handler = function(e){
+    if(window.innerWidth > 1024) return; // escritorio: no tocamos
+    e.preventDefault(); e.stopPropagation();
+    const dd = btn.closest('.dropdown');
+    const isOpen = dd.classList.toggle('open');
+    btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    document.querySelectorAll('.dropdown').forEach(o=>{ if(o!==dd) o.classList.remove('open'); });
+  };
+  btn.addEventListener('click', handler, {passive:false});
+  btn.addEventListener('touchstart', handler, {passive:false});
 });
 
 // Cierra menú al elegir un enlace del menú en móvil
 menu.querySelectorAll('a[href]').forEach(a=>{
-  a.addEventListener('click', ()=>{
-    if (window.innerWidth <= 1024) closeMenu();
-  });
+  const closeOnTap = function(){ if(window.innerWidth <= 1024) closeMenu(); };
+  a.addEventListener('click', closeOnTap);
+  a.addEventListener('touchstart', closeOnTap, {passive:true});
 });
 
-// Observa cambios de altura por fuentes/imagenes
+// Observa cambios de altura
 new ResizeObserver(setMenuTop).observe(document.querySelector('.nav'));
 </script>
 </body>
 </html>
+
 
 
 
