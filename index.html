@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>IPEC — Portada</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --bg:#0b1220;
+      --primary:#f5b400;
+      --text:#ffffff;
+      --muted:#d1d5db;
+      --glass: rgba(255,255,255,.08);
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ===== Barra de contacto ===== */
+    .contact-bar {
+      background: linear-gradient(90deg, #003366, #001a33);
+      color: #fff;
+      font-weight: 600;
+      font-size: .95rem;
+      padding: 10px 0;
+      border-bottom: 2px solid #f5b400;
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      text-align: center;
+    }
+    .contact-bar a { color: #ffd166; text-decoration: none; font-weight: 700; }
+
+    /* ===== Menú principal ===== */
+    .nav {
+      position: fixed;
+      top: 60px;
+      left: 0;
+      right: 0;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,0.55);
+      backdrop-filter: blur(8px);
+      z-index: 999;
+      box-shadow: 0 6px 18px rgba(245,180,0,0.25);
+      border-bottom: 2px solid rgba(245,180,0,0.4);
+    }
+    .nav .container {
+      width: min(1100px, 100%);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 20px;
+    }
+    .brand { display: flex; align-items: center; gap: 12px; font-weight: 700; }
+    .brand img { height: 52px; margin-top: 8px; }
+    .navlinks { display: flex; gap: 18px; align-items: center; }
+    .navlinks a {
+      color: var(--text);
+      padding: 8px 12px;
+      border-radius: 10px;
+      transition: .3s;
+      text-decoration: none;
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .navlinks a:hover { background: var(--glass); }
+
+    /* Flechas uniformes */
+    .arrow {
+      font-size: 0.7rem;
+      transition: transform 0.3s ease;
+      display: inline-block;
+      transform: rotate(0deg);
+    }
+    .dropdown:hover .arrow { transform: rotate(180deg); }
+
+    /* Dropdown */
+    .dropdown { position: relative; display: inline-block; }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 40px; left: 0;
+      background: rgba(20, 20, 30, 0.9);
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+      min-width: 280px;
+      z-index: 99;
+      flex-direction: column;
+      padding: 10px 0;
+    }
+    .dropdown-content a, .dropdown-content p {
+      padding: 10px 16px; color: var(--text); text-decoration: none;
+      display: block; border-radius: 8px; transition: all 0.3s ease;
+      text-align: center;
+    }
+    .dropdown-content a:hover { background: var(--primary); color:#000; }
+    .dropdown:hover .dropdown-content { display: flex; }
+
+    /* Botones con efecto brillo */
+    .btn-offer, .btn-ruta {
+      position: relative;
+      display: inline-block;
+      background: var(--primary);
+      color:#000;
+      padding:10px 16px;
+      border-radius:10px;
+      font-weight:700;
+      text-decoration:none;
+      overflow:hidden;
+      transition: all .3s ease;
+      box-shadow: 0 0 10px rgba(245,180,0,0.4);
+    }
+    .btn-offer::before, .btn-ruta::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -75%;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(120deg, rgba(255,255,255,0.6), transparent, rgba(255,255,255,0.2));
+      transform: skewX(-25deg);
+      transition: all 0.7s ease;
+    }
+    .btn-offer:hover::before, .btn-ruta:hover::before { left: 125%; }
+    .btn-offer:hover, .btn-ruta:hover {
+      background: #fff3b0;
+      box-shadow: 0 0 20px rgba(245,180,0,0.9);
+      transform: scale(1.05);
+    }
+
+    /* ===== Hero ===== */
+    .hero {
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:180px 20px 60px;
+      text-align:center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content:"";
+      position:absolute; inset:0;
+      background: linear-gradient(120deg, #0b1220, #1e3c72, #2a5298, #f5b400);
+      background-size: 300% 300%;
+      animation: gradientMove 15s ease-in-out infinite;
+      z-index:-1;
+    }
+    @keyframes gradientMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .hero h1 {
+      font-size:2.8rem; margin:0; color:var(--primary);
+      text-shadow: 0 0 15px rgba(245,180,0,0.7);
+      font-weight:800; letter-spacing:1px;
+    }
+    .hero p { max-width:600px; margin:20px auto; color:var(--muted); }
+
+    /* ===== Sección Modalidades ===== */
+    .section { padding:80px 20px; }
+    .section h2 { font-size:2rem; margin:0 auto 24px; text-align:center; }
+    .grid {
+      display:grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap:18px; width:min(1100px, 100%); margin:0 auto;
+    }
+    .card {
+      background: var(--glass); border: 1px solid rgba(255,255,255,0.08);
+      border-radius:16px; padding:22px; box-shadow: var(--shadow);
+      backdrop-filter: blur(6px); transition: transform .25s ease, background .25s ease;
+    }
+    .card:hover { transform: translateY(-4px); background: rgba(255,255,255,.12); }
+
+    /* ===== Footer ===== */
+    footer { border-top:1px solid rgba(255,255,255,0.2); padding:20px; text-align:center; color:var(--muted); background:rgba(0,0,0,0.3); }
+    footer a { display:inline-block; margin-top:10px; color:#ffd166; text-decoration:none; font-weight:600; transition:all 0.3s ease; }
+    footer a:hover { color:#fff; text-shadow:0 0 10px rgba(245,180,0,0.8); transform: scale(1.05); }
+
+    /* ===== Redes sociales ===== */
+    .social-fixed {
+      position: fixed; bottom: 20px; left: 20px;
+      display: flex; flex-direction: column; gap: 10px; z-index: 20;
+    }
+    .social-fixed a {
+      color: white; font-size: 1.5rem; background: rgba(255,255,255,0.1);
+      padding: 10px; border-radius: 50%; transition: all 0.3s ease;
+    }
+    .social-fixed a:hover { background: var(--primary); color:#000; transform: scale(1.2); box-shadow: 0 0 10px rgba(245,180,0,0.8); }
+  </style>
+</head>
+<body>
+
+  <!-- Barra de contacto -->
+  <nav class="contact-bar">
+    <p><strong>INFORMACIÓN:</strong> 2244-2343 | IPEC de Santo Domingo |
+      <a href="mailto:ipec.santodomingocentro@mep.go.cr">ipec.santodomingocentro@mep.go.cr</a>
+    </p>
+  </nav>
+
+  <!-- Menú principal -->
+  <nav class="nav">
+    <div class="container">
+      <div class="brand">
+        <img src="LogoMepnew.jpg" alt="Logo MEP"/>
+     
+      </div>
+      <div class="navlinks">
+        <a href="#">Inicio</a>
+
+        <!-- Ofertas Educativas -->
+        <div class="dropdown">
+          <a href="#modalidades">Ofertas Educativas <span class="arrow">▼</span></a>
+          <div class="dropdown-content">
+            <a href="IPEC_Tecnologico.html">🎓 Carrera Técnica</a>
+            <a href="plan.html">📘 Plan de Estudio</a>
+            <a href="cursos.html">🧩 Cursos Libres</a>
+          </div>
+        </div>
+
+        <!-- Servicios Estudiantiles -->
+        <div class="dropdown">
+          <a href="#servicios">Servicios Estudiantiles <span class="arrow">▼</span></a>
+          <div class="dropdown-content">
+            <a href="#comedor">🍽️ Comedor Estudiantil</a>
+            <a href="#transporte">🚌 Servicio de Transporte</a>
+            <a class="btn-ruta" href="rutabus.pdf" target="_blank">Ver ruta</a>
+          </div>
+        </div>
+
+        <!-- Noticias -->
+        <div class="dropdown">
+          <a href="#noticias">Noticias <span class="arrow">▼</span></a>
+          <div class="dropdown-content">
+            <p>📰 Matrícula abierta desde el mes de <strong>Noviembre</strong></p>
+          </div>
+        </div>
+
+        <a href="#contacto">Contacto</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <header class="hero">
+    <div>
+      <h1>Instituto Profesional de Educación Comunitaria</h1>
+      <h1>Santo Domingo</h1>
+      <img src="ipeclogo.png" alt="Logo IPEC" style="margin-top:20px; width:180px;">
+      <p>“Saber, Trabajar y Convivir” — Formamos personas integrales con excelencia académica y compromiso social.</p>
+    </div>
+  </header>
+
+  <!-- Sección Modalidades -->
+  <section class="section" id="modalidades">
+    <h2>Ofertas Educativas</h2>
+    <div class="grid">
+      <div class="card" id="plan">
+        <h3>Plan de Estudio</h3>
+        <p>Garantiza el acceso, la permanencia y aprendizajes significativos en ámbitos académicos y técnicos.</p>
+        <a class="btn-offer" href="plandeestudio.pdf" target="_blank">Ver oferta académica 2026</a>
+      </div>
+      <div class="card" id="carreras">
+        <h3>Carreras Técnicas</h3>
+        <p>Formación técnica del III Ciclo y Diversificada para insertarse al mundo laboral o continuar estudios.</p>
+        <a class="btn-offer" href="ofertaeducativa.jpg" target="_blank">Ver oferta académica 2026</a>
+      </div>
+      <div class="card" id="cursos">
+        <h3>Cursos Libres</h3>
+        <p>Programas para jóvenes y personas adultas que buscan actualizar habilidades o aprender algo nuevo.</p>
+        <a class="btn-offer" href="cursos.pdf" target="_blank">Ver oferta académica 2026</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer id="contacto">
+    <p>© <span id="year"></span> IPEC Santo Domingo, Heredia — Fundado en 1992</p>
+    <a href="https://www.google.com/maps/@10.208346,-84.168281,9z?hl=es&entry=ttu" target="_blank">🗺️ Mapa del sitio</a>
+  </footer>
+
+  <!-- Redes Sociales -->
+  <div class="social-fixed">
+    <a href="https://www.facebook.com/IPECSantoDomingoCr" target="_blank"><i class="fab fa-facebook-f"></i></a>
+    <a href="mailto:ipec.santodomingocentro@mep.go.cr"><i class="fas fa-envelope"></i></a>
+  </div>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+
