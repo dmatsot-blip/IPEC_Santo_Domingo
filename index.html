@@ -9,283 +9,139 @@
 
   <style>
     :root {
-      --bg:#0b1220;
-      --primary:#f5b400;
-      --text:#ffffff;
-      --muted:#d1d5db;
-      --glass: rgba(255,255,255,.08);
-      --shadow: 0 10px 30px rgba(0,0,0,.35);
-      /* Alturas nav para que el logo no se corte */
-      --navH: 100px;
-      --navPadY: 10px;
+      --bg:#0b1220; --primary:#f5b400; --text:#ffffff; --muted:#d1d5db;
+      --glass: rgba(255,255,255,.08); --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --navH: 100px; --navPadY: 10px;
     }
-
-    html { scroll-behavior: smooth; }
-    body {
-      margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      overflow-x: hidden;
-    }
+    html{scroll-behavior:smooth}
+    body{margin:0;font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden}
 
     /* ===== Barra de contacto ===== */
-    .contact-bar {
-      background: linear-gradient(90deg, #003366, #001a33);
-      color: #fff;
-      font-weight: 600;
-      font-size: .95rem;
-      padding: 10px 0;
-      border-bottom: 2px solid #f5b400;
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 4000;
-      text-align: center;
+    .contact-bar{
+      background:linear-gradient(90deg,#003366,#001a33);
+      color:#fff;font-weight:600;font-size:.95rem;padding:10px 0;
+      border-bottom:2px solid var(--primary);
+      position:fixed;top:0;left:0;right:0;z-index:4000;text-align:center;
     }
-    .contact-bar a { color: #ffd166; text-decoration: none; font-weight: 700; }
+    .contact-bar a{color:#ffd166;text-decoration:none;font-weight:700}
 
     /* ===== Menú principal ===== */
-    .nav {
-      position: fixed;
-      top: 60px;
-      left: 0;
-      right: 0;
-      height: var(--navH);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(0,0,0,0.55);
-      backdrop-filter: blur(8px);
-      z-index: 3500;
-      box-shadow: 0 6px 18px rgba(245,180,0,0.25);
-      border-bottom: 2px solid rgba(245,180,0,0.4);
+    .nav{
+      position:fixed; top:60px; left:0; right:0; height:var(--navH);
+      display:flex; align-items:center; justify-content:center;
+      background:rgba(0,0,0,.55); backdrop-filter:blur(8px); z-index:3500;
+      box-shadow:0 6px 18px rgba(245,180,0,.25); border-bottom:2px solid rgba(245,180,0,.4);
     }
-    .nav .container {
-      width: min(1100px, 100%);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0 16px;
-      gap: 12px;
-    }
-    .brand { display: flex; align-items: center; gap: 12px; }
-    /* Logo sin recorte */
+    .nav .container{width:min(1100px,100%);display:flex;justify-content:space-between;align-items:center;gap:12px;padding:0 16px}
+    .brand{display:flex;align-items:center;gap:12px}
     .brand img{
-      display:block;
-      margin:0;
-      height:auto;
-      max-height: calc(var(--navH) - (var(--navPadY) * 2));
-      object-fit: contain;
+      display:block;height:auto;max-height:calc(var(--navH) - (var(--navPadY)*2));object-fit:contain
     }
 
-    .navlinks { display: flex; gap: 18px; align-items: center; }
-    .navlinks a {
-      color: var(--text);
-      padding: 8px 12px;
-      border-radius: 10px;
-      transition: .3s;
-      text-decoration: none;
-      position: relative;
-      display: flex;
-      align-items: center;
-      gap: 5px;
+    .navlinks{display:flex;gap:18px;align-items:center}
+    .navlinks a{
+      color:var(--text);padding:8px 12px;border-radius:10px;transition:.3s;text-decoration:none;display:flex;align-items:center;gap:6px
     }
-    .navlinks a:hover { background: var(--glass); }
+    .navlinks a:hover{background:var(--glass)}
 
-    /* Flechas */
-    .arrow { font-size: 0.7rem; transition: transform 0.3s ease; display: inline-block; }
-    .dropdown:hover .arrow { transform: rotate(180deg); }
+    /* Flecha */
+    .arrow{font-size:.75rem;transition:transform .25s}
 
     /* Dropdown base (desktop) */
-    .dropdown { position: relative; display: inline-block; }
-    .dropdown-content {
-      display: none;
-      position: absolute;
-      top: 40px; left: 0;
-      background: rgba(20, 20, 30, 0.95);
-      border-radius: 12px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-      min-width: 280px;
-      z-index: 99;
-      flex-direction: column;
-      padding: 10px 0;
+    .dropdown{position:relative;display:inline-block}
+    .dropdown-content{
+      display:none; position:absolute; top:40px; left:0; min-width:280px;
+      background:rgba(20,20,30,.95); border-radius:12px; box-shadow:0 8px 20px rgba(0,0,0,.4);
+      z-index:99; flex-direction:column; padding:10px 0;
     }
-    .dropdown-content a, .dropdown-content p {
-      padding: 10px 16px; color: var(--text); text-decoration: none;
-      display: block; border-radius: 8px; transition: all 0.3s ease;
-      text-align: center;
+    .dropdown-content a,.dropdown-content p{
+      padding:10px 16px; color:var(--text); text-decoration:none; display:block; border-radius:8px; text-align:center;
     }
-    .dropdown-content a:hover { background: var(--primary); color:#000; }
-    /* Desktop: hover abre */
-    @media (min-width:1025px){
-      .dropdown:hover .dropdown-content { display:flex; }
-    }
+    .dropdown-content a:hover{background:var(--primary);color:#000}
+    @media (min-width:1025px){ .dropdown:hover .dropdown-content{display:flex} .dropdown:hover .arrow{transform:rotate(180deg)} }
 
-    /* Botones con efecto brillo */
-    .btn-offer, .btn-ruta {
-      position: relative;
-      display: inline-block;
-      background: var(--primary);
-      color:#000;
-      padding:10px 16px;
-      border-radius:10px;
-      font-weight:700;
-      text-decoration:none;
-      overflow:hidden;
-      transition: all .3s ease;
-      box-shadow: 0 0 10px rgba(245,180,0,0.4);
-    }
-    .btn-offer::before, .btn-ruta::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: -75%;
-      width: 50%;
-      height: 100%;
-      background: linear-gradient(120deg, rgba(255,255,255,0.6), transparent, rgba(255,255,255,0.2));
-      transform: skewX(-25deg);
-      transition: all 0.7s ease;
-    }
-    .btn-offer:hover::before, .btn-ruta:hover::before { left: 125%; }
-    .btn-offer:hover, .btn-ruta:hover {
-      background: #fff3b0;
-      box-shadow: 0 0 20px rgba(245,180,0,0.9);
-      transform: scale(1.05);
-    }
+    /* Botones destacados */
+    .btn-offer,.btn-ruta{position:relative;display:inline-block;background:var(--primary);color:#000;padding:10px 16px;border-radius:10px;font-weight:700;text-decoration:none;overflow:hidden;transition:.3s;box-shadow:0 0 10px rgba(245,180,0,.4)}
+    .btn-offer::before,.btn-ruta::before{content:"";position:absolute;top:0;left:-75%;width:50%;height:100%;background:linear-gradient(120deg,rgba(255,255,255,.6),transparent,rgba(255,255,255,.2));transform:skewX(-25deg);transition:.7s}
+    .btn-offer:hover::before,.btn-ruta:hover::before{left:125%}
+    .btn-offer:hover,.btn-ruta:hover{background:#fff3b0;transform:scale(1.03)}
 
     /* ===== Hero ===== */
-    .hero {
-      min-height:100vh;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:calc(60px + var(--navH) + 40px) 20px 60px;
-      text-align:center;
-      position: relative;
-      overflow: hidden;
+    .hero{
+      min-height:100vh; display:flex; align-items:center; justify-content:center; padding:calc(60px + var(--navH) + 40px) 20px 60px; text-align:center; position:relative; overflow:hidden;
     }
-    .hero::before {
-      content:"";
-      position:absolute; inset:0;
-      background: linear-gradient(120deg, #0b1220, #1e3c72, #2a5298, #f5b400);
-      background-size: 300% 300%;
-      animation: gradientMove 15s ease-in-out infinite;
-      z-index:-1;
+    .hero::before{
+      content:""; position:absolute; inset:0;
+      background:linear-gradient(120deg,#0b1220,#1e3c72,#2a5298,#f5b400); background-size:300% 300%; animation:gm 15s ease-in-out infinite; z-index:-1;
     }
-    @keyframes gradientMove {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-    .hero h1 {
-      font-size:2.6rem; margin:.2em 0; color:var(--primary);
-      text-shadow: 0 0 15px rgba(245,180,0,0.7);
-      font-weight:800; letter-spacing:1px;
-    }
-    .hero p { max-width:600px; margin:16px auto; color:var(--muted); }
+    @keyframes gm{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+    .hero h1{font-size:2.6rem;margin:.2em 0;color:var(--primary);text-shadow:0 0 15px rgba(245,180,0,.7);font-weight:800}
+    .hero p{max-width:600px;margin:16px auto;color:var(--muted)}
 
     /* ===== Sección Modalidades ===== */
-    .section { padding:80px 20px; }
-    .section h2 { font-size:2rem; margin:0 auto 24px; text-align:center; }
-    .grid {
-      display:grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap:18px; width:min(1100px, 100%); margin:0 auto;
-    }
-    .card {
-      background: var(--glass); border: 1px solid rgba(255,255,255,0.08);
-      border-radius:16px; padding:22px; box-shadow: var(--shadow);
-      backdrop-filter: blur(6px); transition: transform .25s ease, background .25s ease;
-    }
-    .card:hover { transform: translateY(-4px); background: rgba(255,255,255,.12); }
+    .section{padding:80px 20px}
+    .section h2{font-size:2rem;margin:0 auto 24px;text-align:center}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;width:min(1100px,100%);margin:0 auto}
+    .card{background:var(--glass);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:22px;box-shadow:var(--shadow);backdrop-filter:blur(6px);transition:.25s}
+    .card:hover{transform:translateY(-4px);background:rgba(255,255,255,.12)}
 
     /* ===== Footer ===== */
-    footer { border-top:1px solid rgba(255,255,255,0.2); padding:20px; text-align:center; color:var(--muted); background:rgba(0,0,0,0.3); }
-    footer a { display:inline-block; margin-top:10px; color:#ffd166; text-decoration:none; font-weight:600; transition:all 0.3s ease; }
-    footer a:hover { color:#fff; text-shadow:0 0 10px rgba(245,180,0,0.8); transform: scale(1.05); }
+    footer{border-top:1px solid rgba(255,255,255,.2);padding:20px;text-align:center;color:var(--muted);background:rgba(0,0,0,.3)}
+    footer a{display:inline-block;margin-top:10px;color:#ffd166;text-decoration:none;font-weight:600;transition:.3s}
+    footer a:hover{color:#fff;text-shadow:0 0 10px rgba(245,180,0,.8);transform:scale(1.05)}
 
-    /* ===== Redes sociales ===== */
-    .social-fixed {
-      position: fixed; bottom: 20px; left: 20px;
-      display: flex; flex-direction: column; gap: 10px; z-index: 200;
-    }
-    .social-fixed a {
-      color: white; font-size: 1.5rem; background: rgba(255,255,255,0.1);
-      padding: 10px; border-radius: 50%; transition: all 0.3s ease;
-    }
-    .social-fixed a:hover { background: var(--primary); color:#000; transform: scale(1.2); box-shadow: 0 0 10px rgba(245,180,0,0.8); }
+    /* ===== Redes ===== */
+    .social-fixed{position:fixed;bottom:20px;left:20px;display:flex;flex-direction:column;gap:10px;z-index:200}
+    .social-fixed a{color:#fff;font-size:1.5rem;background:rgba(255,255,255,.1);padding:10px;border-radius:50%;transition:.3s}
+    .social-fixed a:hover{background:var(--primary);color:#000;transform:scale(1.2);box-shadow:0 0 10px rgba(245,180,0,.8)}
 
-    /* ===== Mejoras MÓVIL ===== */
-    /* Botón hamburguesa fijo y visible */
+    /* ===== Móvil: botón y acordeón ===== */
     .menu-toggle{
-      display:none;
-      position:fixed;
-      right:12px;
-      top: calc(60px + 12px);
-      z-index: 6000;
-      background: #0f172a;
-      border: 2px solid #f5b400;
-      color:#fff;
-      padding:10px 14px;
-      border-radius:12px;
-      font-size:1.4rem;
-      line-height:1;
-      cursor:pointer;
-      box-shadow: 0 8px 24px rgba(0,0,0,.5);
+      display:none; position:fixed; right:12px; top:calc(60px + 12px);
+      z-index:6000; background:#0f172a; border:2px solid var(--primary); color:#fff; padding:10px 14px; border-radius:12px; font-size:1.4rem; cursor:pointer;
+      box-shadow:0 8px 24px rgba(0,0,0,.5);
     }
-    /* Backdrop */
     .mobile-backdrop{
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,.45);
-      z-index: 5000;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity .2s ease;
+      position:fixed; inset:0; background:rgba(0,0,0,.45); z-index:5000;
+      opacity:0; pointer-events:none; transition:.2s;
     }
-    .mobile-backdrop.show{ opacity:1; pointer-events:auto; }
+    .mobile-backdrop.show{opacity:1; pointer-events:auto}
+
+    /* Botón de submenú solo en móvil */
+    .dd-toggle{
+      display:none; background:transparent; border:0; color:var(--text);
+      padding:10px 12px; border-radius:10px; width:100%; text-align:left; cursor:pointer;
+    }
+    .dd-toggle:hover{background:var(--glass)}
 
     @media (max-width:1024px){
-      :root{ --navH:108px; }
-      .menu-toggle{ display:block; }
-      .nav .container{ padding:0 12px; }
-      /* Panel de menú móvil sólido y encima de todo */
+      :root{--navH:108px}
+      .menu-toggle{display:block}
+      .nav .container{padding:0 12px}
+
       .navlinks{
-        display:none;
-        position:fixed;
-        left:12px; right:12px;
-        top: var(--menuTop, 150px);
-        background:#0a1224;
-        border:2px solid #f5b400;
-        border-radius:14px;
-        padding:14px;
-        gap:8px;
-        z-index: 5500;
-        flex-direction:column;
-        max-height:calc(100vh - var(--menuTop) - 16px);
-        overflow:auto;
-        font-size:1.06rem;
+        display:none; position:fixed; left:12px; right:12px; top:var(--menuTop,150px);
+        background:#0a1224; border:2px solid var(--primary); border-radius:14px; padding:14px; gap:8px; z-index:5500; flex-direction:column;
+        max-height:calc(100vh - var(--menuTop) - 16px); overflow:auto; font-size:1.06rem;
       }
-      .navlinks.open{ display:flex; }
-      /* Dropdowns como acordeón */
-      .dropdown .dropdown-content{
-        position: static !important;
-        display: none;
-        background:#0d1b3a;
-        border:1px solid rgba(245,180,0,.45);
-        border-radius:10px;
-        padding:8px 6px;
-        margin:6px 0 2px 0;
-        box-shadow:none;
+      .navlinks.open{display:flex}
+
+      /* Reemplazo: botón de acordeón visible y link de escritorio oculto */
+      .dropdown > a.dd-link{display:none}
+      .dropdown > button.dd-toggle{display:block}
+
+      /* Panel del submenú incorporado al flujo, no flotante */
+      .dropdown-content{
+        position:static !important; display:none; background:#0d1b3a;
+        border:1px solid rgba(245,180,0,.45); border-radius:10px; padding:8px 6px; margin:6px 0 2px 0; box-shadow:none;
       }
-      .dropdown.open .dropdown-content{ display:flex !important; }
-      /* Evitar rotación por hover en móvil */
-      .dropdown:hover .arrow{ transform:none; }
+      .dropdown.open .dropdown-content{display:flex !important}
     }
   </style>
 </head>
 <body>
 
-  <!-- Backdrop para móvil -->
+  <!-- Backdrop móvil -->
   <div class="mobile-backdrop" id="mobileBackdrop"></div>
 
   <!-- Barra de contacto -->
@@ -302,7 +158,7 @@
         <img src="LogoMepnew.jpg" alt="Logo MEP" onerror="this.src='LogoMepnew.png'">
       </div>
 
-      <!-- Botón móvil (no existía antes) -->
+      <!-- Botón móvil -->
       <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="mainMenu">
         <i class="fa-solid fa-bars"></i>
       </button>
@@ -312,7 +168,10 @@
 
         <!-- Ofertas Educativas -->
         <div class="dropdown">
+          <!-- Link original (solo desktop) -->
           <a href="#modalidades" class="dd-link">Ofertas Educativas <span class="arrow">▼</span></a>
+          <!-- Botón móvil para abrir el submenú -->
+          <button class="dd-toggle" type="button" aria-expanded="false">Ofertas Educativas <span class="arrow">▼</span></button>
           <div class="dropdown-content">
             <a href="IPEC_Tecnologico.html">🎓 Carrera Técnica</a>
             <a href="plan.html">📘 Plan de Estudio</a>
@@ -323,6 +182,7 @@
         <!-- Servicios Estudiantiles -->
         <div class="dropdown">
           <a href="#servicios" class="dd-link">Servicios Estudiantiles <span class="arrow">▼</span></a>
+          <button class="dd-toggle" type="button" aria-expanded="false">Servicios Estudiantiles <span class="arrow">▼</span></button>
           <div class="dropdown-content">
             <a href="#comedor">🍽️ Comedor Estudiantil</a>
             <a href="#transporte">🚌 Servicio de Transporte</a>
@@ -333,8 +193,9 @@
         <!-- Noticias -->
         <div class="dropdown">
           <a href="#noticias" class="dd-link">Noticias <span class="arrow">▼</span></a>
+          <button class="dd-toggle" type="button" aria-expanded="false">Noticias <span class="arrow">▼</span></button>
           <div class="dropdown-content">
-            <p>📰 Matrícula abierta desde el mes de <strong>Noviembre</strong></p>
+            <p style="margin:0 10px">📰 Matrícula abierta desde el mes de <strong>Noviembre</strong></p>
           </div>
         </div>
 
@@ -389,91 +250,53 @@
 
   <script>
     // Año
-    (function(){
-      var y = document.getElementById('year');
-      if (y) y.textContent = new Date().getFullYear();
-    })();
+    (function(){ var y=document.getElementById('year'); if(y) y.textContent=new Date().getFullYear(); })();
 
-    // Backdrop
-    const backdrop = document.getElementById('mobileBackdrop');
-
-    // Calcula el top del panel en móvil
+    // Posición del panel móvil
     function setMenuTop(){
-      var cb = document.querySelector('.contact-bar');
-      var nv = document.querySelector('.nav');
-      var top = (cb ? cb.offsetHeight : 0) + (nv ? nv.offsetHeight : 0) + 10;
-      document.documentElement.style.setProperty('--menuTop', top + 'px');
+      const cb=document.querySelector('.contact-bar');
+      const nv=document.querySelector('.nav');
+      const top=(cb?cb.offsetHeight:0)+(nv?nv.offsetHeight:0)+10;
+      document.documentElement.style.setProperty('--menuTop',top+'px');
     }
-    window.addEventListener('load', setMenuTop);
-    window.addEventListener('resize', setMenuTop);
+    window.addEventListener('load',setMenuTop);
+    window.addEventListener('resize',setMenuTop);
     new ResizeObserver(setMenuTop).observe(document.querySelector('.nav'));
 
     // Toggle menú móvil
-    const menuToggle = document.getElementById('menuToggle');
-    const mainMenu   = document.getElementById('mainMenu');
+    const menuToggle=document.getElementById('menuToggle');
+    const mainMenu=document.getElementById('mainMenu');
+    const backdrop=document.getElementById('mobileBackdrop');
 
-    function openMenu(){
-      mainMenu.classList.add('open');
-      backdrop.classList.add('show');
-      menuToggle.setAttribute('aria-expanded','true');
-      setMenuTop();
-    }
-    function closeMenu(){
-      mainMenu.classList.remove('open');
-      backdrop.classList.remove('show');
-      menuToggle.setAttribute('aria-expanded','false');
-    }
-
-    function toggleMenu(e){
-      e.preventDefault();
-      e.stopPropagation();
-      mainMenu.classList.contains('open') ? closeMenu() : openMenu();
-    }
-    menuToggle.addEventListener('click', toggleMenu, {passive:false});
-    menuToggle.addEventListener('touchstart', toggleMenu, {passive:false});
+    function openMenu(){ mainMenu.classList.add('open'); backdrop.classList.add('show'); menuToggle.setAttribute('aria-expanded','true'); setMenuTop(); }
+    function closeMenu(){ mainMenu.classList.remove('open'); backdrop.classList.remove('show'); menuToggle.setAttribute('aria-expanded','false'); }
+    menuToggle.addEventListener('click', e=>{ e.preventDefault(); e.stopPropagation(); mainMenu.classList.contains('open')?closeMenu():openMenu(); });
     backdrop.addEventListener('click', closeMenu);
-    document.addEventListener('click', function(e){
-      if (!mainMenu.contains(e.target) && !menuToggle.contains(e.target)) closeMenu();
-    });
+    document.addEventListener('click', e=>{ if(!mainMenu.contains(e.target) && !menuToggle.contains(e.target)) closeMenu(); });
 
-    // Submenús en móvil: primer toque abre, segundo navega
-    document.querySelectorAll('.dropdown').forEach(function(dd){
-      const link = dd.querySelector(':scope > .dd-link');
-      const panel = dd.querySelector(':scope > .dropdown-content');
-      if (!link || !panel) return;
-
-      let armed = false; // primer toque
-
-      function handler(ev){
-        if (window.innerWidth > 1024) return; // desktop: no interceptar
-        if (!dd.classList.contains('open')){
-          ev.preventDefault();
-          ev.stopPropagation();
+    // Submenús en móvil: botón dedicado
+    document.querySelectorAll('.dropdown').forEach(dd=>{
+      const btn = dd.querySelector(':scope > .dd-toggle');
+      if(!btn) return;
+      btn.addEventListener('click', e=>{
+        if(window.innerWidth<=1024){
+          e.preventDefault();
+          const isOpen = dd.classList.toggle('open');
+          btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
           // cerrar otros
-          document.querySelectorAll('.dropdown.open').forEach(o => { if (o !== dd) o.classList.remove('open'); });
-          dd.classList.add('open');
-          armed = true;
-        } else {
-          // ya estaba abierto: permitir navegación normal
-          armed = false;
-          // si es ancla interna, cerrar el menú al “navegar”
-          const href = link.getAttribute('href') || '';
-          if (href.startsWith('#')) closeMenu();
+          document.querySelectorAll('.dropdown').forEach(o=>{ if(o!==dd) o.classList.remove('open'); });
         }
-      }
-      link.addEventListener('click', handler, {passive:false});
-      link.addEventListener('touchstart', handler, {passive:false});
+      });
     });
 
-    // Cerrar menú al tocar cualquier enlace del menú en móvil
+    // Cerrar menú al elegir un enlace (móvil)
     document.querySelectorAll('#mainMenu a').forEach(a=>{
-      a.addEventListener('click', function(){
-        if (window.innerWidth <= 1024) closeMenu();
-      });
+      a.addEventListener('click', ()=>{ if(window.innerWidth<=1024) closeMenu(); });
     });
   </script>
 </body>
 </html>
+
 
 
 
