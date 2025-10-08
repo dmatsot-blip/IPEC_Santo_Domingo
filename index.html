@@ -1,345 +1,269 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>IPEC — Portada</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>IPEC — Portada</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-  <style>
-    :root {
-      --bg:#0b1220;
-      --primary:#f5b400;
-      --text:#ffffff;
-      --muted:#d1d5db;
-      --glass:rgba(255,255,255,.08);
-      --shadow:0 10px 30px rgba(0,0,0,.35);
-      --navH:100px;
-    }
+<style>
+:root{
+  --bg:#0b1220; --primary:#f5b400; --text:#fff; --muted:#d1d5db;
+  --navH: 100px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Poppins,system-ui,Arial;background:var(--bg);color:var(--text);}
 
-    body {
-      margin:0;
-      font-family:'Poppins',sans-serif;
-      background:var(--bg);
-      color:var(--text);
-    }
+/* Barra contacto */
+.contact-bar{
+  position:fixed; top:0; left:0; right:0; z-index:4000;
+  background:linear-gradient(90deg,#003366,#001a33); color:#fff; padding:10px 12px;
+  border-bottom:2px solid var(--primary); text-align:center; font-weight:600;
+}
+.contact-bar a{color:#ffd166; text-decoration:none; font-weight:700}
 
-    /* Barra de contacto */
-    .contact-bar {
-      background:linear-gradient(90deg,#003366,#001a33);
-      color:#fff;
-      font-weight:600;
-      font-size:.95rem;
-      padding:10px 0;
-      border-bottom:2px solid var(--primary);
-      position:fixed;
-      top:0;left:0;right:0;
-      z-index:1000;
-      text-align:center;
-    }
-    .contact-bar a { color:#ffd166; text-decoration:none; font-weight:700; }
+/* Nav */
+.nav{
+  position:fixed; top:60px; left:0; right:0; height:var(--navH); z-index:3500;
+  display:flex; align-items:center; justify-content:center;
+  background:rgba(0,0,0,.55); backdrop-filter:blur(8px);
+  border-bottom:2px solid rgba(245,180,0,.4);
+}
+.nav .container{
+  width:min(1100px,100%); display:flex; align-items:center; justify-content:space-between; gap:12px; padding:0 16px;
+}
+.brand img{display:block; max-height:80px; height:auto; object-fit:contain}
 
-    /* Navegación */
-    .nav {
-      position:fixed;
-      top:60px;left:0;right:0;
-      background:rgba(0,0,0,.55);
-      backdrop-filter:blur(8px);
-      display:flex;
-      justify-content:center;
-      height:var(--navH);
-      z-index:999;
-      border-bottom:2px solid rgba(245,180,0,.4);
-    }
+/* Enlaces */
+.navlinks{display:flex; gap:18px; align-items:center}
+.navlinks a, .dd-trigger{
+  color:var(--text); text-decoration:none; padding:8px 12px; border-radius:10px; transition:.25s; background:transparent; border:0; font:inherit; cursor:pointer;
+}
+.navlinks a:hover, .dd-trigger:hover{background:rgba(255,255,255,.08)}
 
-    .nav .container {
-      width:min(1100px,100%);
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      padding:0 16px;
-    }
+/* Dropdown */
+.dropdown{position:relative}
+.dropdown-panel{
+  display:none; position:absolute; top:40px; left:0; min-width:280px; z-index:99;
+  background:rgba(20,20,30,.95); border-radius:12px; padding:10px 0; box-shadow:0 8px 20px rgba(0,0,0,.4);
+}
+.dropdown-panel a,.dropdown-panel p{display:block; padding:10px 16px; text-align:center; color:#fff; text-decoration:none}
+.dropdown-panel a:hover{background:var(--primary); color:#000}
+@media (min-width:1025px){ .dropdown:hover .dropdown-panel{display:flex; flex-direction:column} }
 
-    .brand img {
-      max-height:80px;
-      object-fit:contain;
-    }
+/* Hero */
+.hero{
+  min-height:100vh; display:flex; align-items:center; justify-content:center; text-align:center;
+  padding:calc(60px + var(--navH) + 40px) 20px 60px;
+  background:linear-gradient(120deg,#0b1220,#1e3c72,#2a5298,#f5b400);
+  background-size:300% 300%; animation:gm 15s ease-in-out infinite;
+}
+@keyframes gm{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+.hero h1{font-size:2.6rem; color:var(--primary); text-shadow:0 0 14px rgba(245,180,0,.7); font-weight:800}
 
-    .menu-toggle {
-      display:none;
-      background:#0f172a;
-      border:2px solid #f5b400;
-      color:#fff;
-      font-size:1.5rem;
-      padding:10px 14px;
-      border-radius:10px;
-      cursor:pointer;
-    }
+/* Secciones */
+.section{padding:80px 20px}
+.section h2{text-align:center}
+.grid{width:min(1100px,100%); margin:0 auto; display:grid; gap:18px; grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.card{background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.1); border-radius:16px; padding:22px}
 
-    .navlinks {
-      display:flex;
-      gap:18px;
-      align-items:center;
-    }
+/* Footer */
+footer{border-top:1px solid rgba(255,255,255,.2); padding:20px; text-align:center; color:var(--muted); background:rgba(0,0,0,.3)}
 
-    .navlinks a, .dd-trigger {
-      color:var(--text);
-      text-decoration:none;
-      padding:8px 12px;
-      border-radius:10px;
-      transition:.3s;
-      background:transparent;
-      font:inherit;
-      border:none;
-      cursor:pointer;
-    }
+/* Backdrop móvil */
+.mobile-backdrop{
+  position:fixed; inset:0; background:rgba(0,0,0,.45); z-index:5000;
+  opacity:0; pointer-events:none; transition:.25s;
+}
+.mobile-backdrop.show{opacity:1; pointer-events:auto}
 
-    .navlinks a:hover, .dd-trigger:hover { background:var(--glass); }
+/* Botón menú: FIJO en móvil para que NO desaparezca */
+.menu-toggle{
+  display:none;
+  position:fixed; right:12px; top:calc(60px + 12px); z-index:6000;
+  background:#0f172a; border:2px solid var(--primary); color:#fff; border-radius:12px;
+  padding:10px 14px; font-size:1.4rem; line-height:1; cursor:pointer; box-shadow:0 8px 20px rgba(0,0,0,.5);
+}
 
-    /* Dropdown */
-    .dropdown { position:relative; }
-    .dropdown-panel {
-      display:none;
-      position:absolute;
-      top:40px;
-      left:0;
-      background:rgba(20,20,30,0.95);
-      border-radius:12px;
-      box-shadow:0 8px 20px rgba(0,0,0,0.4);
-      min-width:280px;
-      z-index:99;
-      flex-direction:column;
-      padding:10px 0;
-    }
-    .dropdown-panel a, .dropdown-panel p {
-      padding:10px 16px;
-      color:var(--text);
-      text-decoration:none;
-      display:block;
-      border-radius:8px;
-      text-align:center;
-    }
-    .dropdown-panel a:hover { background:var(--primary); color:#000; }
+/* Menú móvil */
+@media (max-width:1024px){
+  .menu-toggle{display:block}
+  .nav .container{padding:0 12px}
+  .navlinks{
+    display:none; position:fixed; left:12px; right:12px; z-index:5500;
+    top:calc(var(--menuTop, 150px));
+    background:#0a1224; border:2px solid var(--primary); border-radius:14px; padding:14px; gap:8px; flex-direction:column;
+    max-height:calc(100vh - var(--menuTop) - 16px); overflow:auto;
+  }
+  .navlinks.open{display:flex}
 
-    @media (min-width:1025px) {
-      .dropdown:hover .dropdown-panel { display:flex; }
-    }
-
-    /* Hero */
-    .hero {
-      min-height:100vh;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:calc(120px + var(--navH)) 20px 60px;
-      text-align:center;
-      background:linear-gradient(120deg,#0b1220,#1e3c72,#2a5298,#f5b400);
-      background-size:300% 300%;
-      animation:gradientMove 15s ease-in-out infinite;
-    }
-    @keyframes gradientMove {
-      0% { background-position:0% 50%; }
-      50% { background-position:100% 50%; }
-      100% { background-position:0% 50%; }
-    }
-    .hero h1 {
-      font-size:2.8rem;
-      color:var(--primary);
-      text-shadow:0 0 15px rgba(245,180,0,0.7);
-      font-weight:800;
-    }
-
-    .section { padding:80px 20px; }
-    .section h2 { text-align:center; font-size:2rem; }
-
-    .grid {
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-      gap:18px;
-      width:min(1100px,100%);
-      margin:0 auto;
-    }
-
-    .card {
-      background:var(--glass);
-      border:1px solid rgba(255,255,255,0.08);
-      border-radius:16px;
-      padding:22px;
-      box-shadow:var(--shadow);
-      backdrop-filter:blur(6px);
-      transition:transform .25s ease;
-    }
-
-    .card:hover { transform:translateY(-4px); background:rgba(255,255,255,.12); }
-
-    footer {
-      border-top:1px solid rgba(255,255,255,0.2);
-      padding:20px;
-      text-align:center;
-      color:var(--muted);
-      background:rgba(0,0,0,0.3);
-    }
-    footer a { color:#ffd166; text-decoration:none; font-weight:600; }
-
-    /* Móvil */
-    .mobile-backdrop {
-      position:fixed;
-      inset:0;
-      background:rgba(0,0,0,.45);
-      z-index:900;
-      opacity:0;
-      pointer-events:none;
-      transition:.3s;
-    }
-    .mobile-backdrop.show { opacity:1; pointer-events:auto; }
-
-    @media (max-width:1024px) {
-      .menu-toggle { display:block; }
-      .navlinks {
-        display:none;
-        position:fixed;
-        left:10px; right:10px;
-        top:130px;
-        background:#0a1224;
-        border:2px solid #f5b400;
-        border-radius:14px;
-        padding:14px;
-        flex-direction:column;
-        z-index:1000;
-      }
-      .navlinks.open { display:flex; }
-
-      .dropdown-panel {
-        position:static;
-        display:none;
-        background:#0d1b3a;
-        border:1px solid rgba(245,180,0,.45);
-        border-radius:10px;
-        padding:8px 6px;
-        margin:6px 0;
-      }
-      .dropdown.open .dropdown-panel { display:flex; }
-    }
-  </style>
+  .dropdown-panel{
+    position:static !important; display:none; background:#0d1b3a; border:1px solid rgba(245,180,0,.45); border-radius:10px; margin:6px 0; padding:8px 6px;
+  }
+  .dropdown.open .dropdown-panel{display:flex; flex-direction:column}
+}
+</style>
 </head>
-
 <body>
-  <div class="mobile-backdrop" id="mobileBackdrop"></div>
 
-  <nav class="contact-bar">
-    <p><strong>INFORMACIÓN:</strong> 2244-2343 | IPEC de Santo Domingo |
-      <a href="mailto:ipec.santodomingocentro@mep.go.cr">ipec.santodomingocentro@mep.go.cr</a>
-    </p>
-  </nav>
+<!-- Backdrop -->
+<div class="mobile-backdrop" id="mobileBackdrop"></div>
 
-  <nav class="nav">
-    <div class="container">
-      <div class="brand">
-        <img src="LogoMepnew.jpg" alt="Logo MEP" onerror="this.src='LogoMepnew.png'">
-      </div>
+<!-- Barra contacto -->
+<nav class="contact-bar">
+  <p><strong>INFORMACIÓN:</strong> 2244-2343 | IPEC de Santo Domingo |
+    <a href="mailto:ipec.santodomingocentro@mep.go.cr">ipec.santodomingocentro@mep.go.cr</a>
+  </p>
+</nav>
 
-      <button class="menu-toggle" id="menuToggle"><i class="fa-solid fa-bars"></i></button>
-
-      <div class="navlinks" id="mainMenu">
-        <a href="#inicio">Inicio</a>
-
-        <div class="dropdown">
-          <button class="dd-trigger">Ofertas Educativas <span class="arrow">▼</span></button>
-          <div class="dropdown-panel">
-            <a href="IPEC_Tecnologico.html">🎓 Carrera Técnica</a>
-            <a href="plan.html">📘 Plan de Estudio</a>
-            <a href="cursos.html">🧩 Cursos Libres</a>
-          </div>
-        </div>
-
-        <div class="dropdown">
-          <button class="dd-trigger">Servicios Estudiantiles <span class="arrow">▼</span></button>
-          <div class="dropdown-panel">
-            <a href="#comedor">🍽️ Comedor Estudiantil</a>
-            <a href="#transporte">🚌 Servicio de Transporte</a>
-            <a class="btn-ruta" href="rutabus.pdf" target="_blank">Ver ruta</a>
-          </div>
-        </div>
-
-        <div class="dropdown">
-          <button class="dd-trigger">Noticias <span class="arrow">▼</span></button>
-          <div class="dropdown-panel">
-            <p>📰 Matrícula abierta desde el mes de <strong>Noviembre</strong></p>
-          </div>
-        </div>
-
-        <a href="#contacto">Contacto</a>
-      </div>
+<!-- Nav -->
+<nav class="nav">
+  <div class="container">
+    <div class="brand">
+      <img src="LogoMepnew.jpg" alt="Logo MEP" onerror="this.src='LogoMepnew.png'">
     </div>
-  </nav>
 
-  <header class="hero" id="inicio">
-    <div>
-      <h1>Instituto Profesional de Educación Comunitaria</h1>
-      <h1>Santo Domingo</h1>
-      <p>“Saber, Trabajar y Convivir” — Formamos personas integrales con excelencia académica y compromiso social.</p>
+    <!-- el botón está FUERA del flujo del container en móvil (position:fixed) -->
+    <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="mainMenu">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+
+    <div class="navlinks" id="mainMenu" role="menu">
+      <a href="#inicio">Inicio</a>
+
+      <div class="dropdown">
+        <button class="dd-trigger" type="button" aria-expanded="false">Ofertas Educativas <span class="arrow">▼</span></button>
+        <div class="dropdown-panel">
+          <a href="IPEC_Tecnologico.html">🎓 Carrera Técnica</a>
+          <a href="plan.html">📘 Plan de Estudio</a>
+          <a href="cursos.html">🧩 Cursos Libres</a>
+        </div>
+      </div>
+
+      <div class="dropdown">
+        <button class="dd-trigger" type="button" aria-expanded="false">Servicios Estudiantiles <span class="arrow">▼</span></button>
+        <div class="dropdown-panel">
+          <a href="#comedor">🍽️ Comedor Estudiantil</a>
+          <a href="#transporte">🚌 Servicio de Transporte</a>
+          <a class="btn-ruta" href="rutabus.pdf" target="_blank" rel="noopener">Ver ruta</a>
+        </div>
+      </div>
+
+      <div class="dropdown">
+        <button class="dd-trigger" type="button" aria-expanded="false">Noticias <span class="arrow">▼</span></button>
+        <div class="dropdown-panel">
+          <p style="margin:0 10px">📰 Matrícula abierta desde <strong>Noviembre</strong></p>
+        </div>
+      </div>
+
+      <a href="#contacto">Contacto</a>
     </div>
-  </header>
+  </div>
+</nav>
 
-  <section class="section" id="modalidades">
-    <h2>Ofertas Educativas</h2>
-    <div class="grid">
-      <div class="card">
-        <h3>Plan de Estudio</h3>
-        <p>Garantiza el acceso y aprendizaje significativo.</p>
-        <a class="btn-offer" href="plandeestudio.pdf" target="_blank">Ver oferta 2026</a>
-      </div>
-      <div class="card">
-        <h3>Carreras Técnicas</h3>
-        <p>Formación para el mundo laboral o estudios superiores.</p>
-        <a class="btn-offer" href="ofertaeducativa.jpg" target="_blank">Ver oferta 2026</a>
-      </div>
-      <div class="card">
-        <h3>Cursos Libres</h3>
-        <p>Programas para jóvenes y adultos.</p>
-        <a class="btn-offer" href="cursos.pdf" target="_blank">Ver oferta 2026</a>
-      </div>
+<!-- Hero -->
+<header class="hero" id="inicio">
+  <div>
+    <h1>Instituto Profesional de Educación Comunitaria</h1>
+    <h1>Santo Domingo</h1>
+    <p>“Saber, Trabajar y Convivir”.</p>
+  </div>
+</header>
+
+<section class="section" id="modalidades">
+  <h2>Ofertas Educativas</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>Plan de Estudio</h3>
+      <p>Acceso y aprendizajes significativos.</p>
+      <a class="dd-trigger" href="plandeestudio.pdf" target="_blank">Ver oferta 2026</a>
     </div>
-  </section>
+    <div class="card">
+      <h3>Carreras Técnicas</h3>
+      <p>Inserción laboral o estudios superiores.</p>
+      <a class="dd-trigger" href="ofertaeducativa.jpg" target="_blank">Ver oferta 2026</a>
+    </div>
+    <div class="card">
+      <h3>Cursos Libres</h3>
+      <p>Actualiza habilidades o aprende algo nuevo.</p>
+      <a class="dd-trigger" href="cursos.pdf" target="_blank">Ver oferta 2026</a>
+    </div>
+  </div>
+</section>
 
-  <footer id="contacto">
-    <p>© <span id="year"></span> IPEC Santo Domingo, Heredia — Fundado en 1992</p>
-  </footer>
+<footer id="contacto">
+  <p>© <span id="year"></span> IPEC Santo Domingo, Heredia — Fundado en 1992</p>
+</footer>
 
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
 
-    const menuToggle = document.getElementById('menuToggle');
-    const mainMenu = document.getElementById('mainMenu');
-    const backdrop = document.getElementById('mobileBackdrop');
+// Calcula top real para el panel móvil
+function setMenuTop(){
+  const cb = document.querySelector('.contact-bar');
+  const nv = document.querySelector('.nav');
+  const top = (cb?cb.offsetHeight:0) + (nv?nv.offsetHeight:0) + 10;
+  document.documentElement.style.setProperty('--menuTop', top + 'px');
+}
+window.addEventListener('load', setMenuTop);
+window.addEventListener('resize', setMenuTop);
 
-    menuToggle.addEventListener('click', () => {
-      mainMenu.classList.toggle('open');
-      backdrop.classList.toggle('show');
-    });
+// Toggle menú móvil
+const toggle = document.getElementById('menuToggle');
+const menu = document.getElementById('mainMenu');
+const backdrop = document.getElementById('mobileBackdrop');
 
-    backdrop.addEventListener('click', () => {
-      mainMenu.classList.remove('open');
-      backdrop.classList.remove('show');
-    });
+function openMenu(){
+  menu.classList.add('open');
+  backdrop.classList.add('show');
+  toggle.setAttribute('aria-expanded','true');
+  setMenuTop();
+}
+function closeMenu(){
+  menu.classList.remove('open');
+  backdrop.classList.remove('show');
+  toggle.setAttribute('aria-expanded','false');
+}
 
-    // Dropdowns móviles
-    document.querySelectorAll('.dd-trigger').forEach(btn => {
-      btn.addEventListener('click', e => {
-        if (window.innerWidth <= 1024) {
-          e.preventDefault();
-          const parent = btn.closest('.dropdown');
-          const open = parent.classList.toggle('open');
-          document.querySelectorAll('.dropdown').forEach(o => {
-            if (o !== parent) o.classList.remove('open');
-          });
-        }
-      });
-    });
-  </script>
+toggle.addEventListener('click', e=>{
+  e.stopPropagation();
+  menu.classList.contains('open') ? closeMenu() : openMenu();
+});
+backdrop.addEventListener('click', closeMenu);
+document.addEventListener('click', e=>{
+  if (!menu.contains(e.target) && !toggle.contains(e.target)) closeMenu();
+});
+
+// Submenús móviles como acordeón
+document.querySelectorAll('.dd-trigger').forEach(btn=>{
+  btn.addEventListener('click', e=>{
+    // Si es botón de dropdown y estamos en móvil
+    if (btn.getAttribute('type') === 'button' && window.innerWidth <= 1024){
+      e.preventDefault();
+      const dd = btn.closest('.dropdown');
+      const isOpen = dd.classList.toggle('open');
+      btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      // Cierra otros
+      document.querySelectorAll('.dropdown').forEach(o=>{ if(o!==dd) o.classList.remove('open'); });
+    }
+  });
+});
+
+// Cierra menú al elegir un enlace del menú en móvil
+menu.querySelectorAll('a[href]').forEach(a=>{
+  a.addEventListener('click', ()=>{
+    if (window.innerWidth <= 1024) closeMenu();
+  });
+});
+
+// Observa cambios de altura por fuentes/imagenes
+new ResizeObserver(setMenuTop).observe(document.querySelector('.nav'));
+</script>
 </body>
 </html>
+
 
 
 
