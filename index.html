@@ -17,9 +17,7 @@
       --shadow: 0 10px 30px rgba(0,0,0,.35);
     }
 
-    html {
-      scroll-behavior: smooth;
-    }
+    html { scroll-behavior: smooth; }
 
     body {
       margin: 0;
@@ -69,6 +67,17 @@
     }
     .brand { display: flex; align-items: center; gap: 12px; font-weight: 700; }
     .brand img { height: 52px; margin-top: 8px; }
+
+    /* Botón hamburguesa */
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--text);
+      font-size: 1.6rem;
+      cursor: pointer;
+    }
+
     .navlinks { display: flex; gap: 18px; align-items: center; }
     .navlinks a {
       color: var(--text);
@@ -83,7 +92,6 @@
     }
     .navlinks a:hover { background: var(--glass); }
 
-    /* Flechas uniformes */
     .arrow {
       font-size: 0.7rem;
       transition: transform 0.3s ease;
@@ -92,7 +100,6 @@
     }
     .dropdown:hover .arrow { transform: rotate(180deg); }
 
-    /* Dropdown */
     .dropdown { position: relative; display: inline-block; }
     .dropdown-content {
       display: none;
@@ -114,7 +121,6 @@
     .dropdown-content a:hover { background: var(--primary); color:#000; }
     .dropdown:hover .dropdown-content { display: flex; }
 
-    /* Botones con efecto brillo */
     .btn-offer, .btn-ruta {
       position: relative;
       display: inline-block;
@@ -177,7 +183,6 @@
     }
     .hero p { max-width:600px; margin:20px auto; color:var(--muted); }
 
-    /* ===== Sección Modalidades ===== */
     .section { padding:80px 20px; }
     .section h2 { font-size:2rem; margin:0 auto 24px; text-align:center; }
     .grid {
@@ -191,12 +196,10 @@
     }
     .card:hover { transform: translateY(-4px); background: rgba(255,255,255,.12); }
 
-    /* ===== Footer ===== */
     footer { border-top:1px solid rgba(255,255,255,0.2); padding:20px; text-align:center; color:var(--muted); background:rgba(0,0,0,0.3); }
     footer a { display:inline-block; margin-top:10px; color:#ffd166; text-decoration:none; font-weight:600; transition:all 0.3s ease; }
     footer a:hover { color:#fff; text-shadow:0 0 10px rgba(245,180,0,0.8); transform: scale(1.05); }
 
-    /* ===== Redes sociales ===== */
     .social-fixed {
       position: fixed; bottom: 20px; left: 20px;
       display: flex; flex-direction: column; gap: 10px; z-index: 20;
@@ -206,28 +209,54 @@
       padding: 10px; border-radius: 50%; transition: all 0.3s ease;
     }
     .social-fixed a:hover { background: var(--primary); color:#000; transform: scale(1.2); box-shadow: 0 0 10px rgba(245,180,0,0.8); }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 960px) {
+      .menu-toggle { display: block; }
+      .navlinks {
+        display: none;
+        position: fixed;
+        top: 140px;
+        right: 16px; left: 16px;
+        flex-direction: column;
+        gap: 10px;
+        background: rgba(0,0,0,0.9);
+        padding: 20px;
+        border-radius: 12px;
+        z-index: 1001;
+      }
+      .navlinks.open { display: flex; }
+      .dropdown-content {
+        position: static;
+        display: none;
+        box-shadow: none;
+        background: rgba(20,20,30,0.95);
+      }
+      .dropdown.open .dropdown-content { display: flex; }
+    }
   </style>
 </head>
 <body>
 
-  <!-- Barra de contacto -->
   <nav class="contact-bar">
     <p><strong>INFORMACIÓN:</strong> 2244-2343 | IPEC de Santo Domingo |
       <a href="mailto:ipec.santodomingocentro@mep.go.cr">ipec.santodomingocentro@mep.go.cr</a>
     </p>
   </nav>
 
-  <!-- Menú principal -->
   <nav class="nav">
     <div class="container">
       <div class="brand">
         <img src="LogoMepnew.jpg" alt="Logo MEP"/>
-     
       </div>
-      <div class="navlinks">
+
+      <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="mainMenu">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+
+      <div class="navlinks" id="mainMenu">
         <a href="#">Inicio</a>
 
-        <!-- Ofertas Educativas -->
         <div class="dropdown">
           <a href="#modalidades">Ofertas Educativas <span class="arrow">▼</span></a>
           <div class="dropdown-content">
@@ -237,7 +266,6 @@
           </div>
         </div>
 
-        <!-- Servicios Estudiantiles -->
         <div class="dropdown">
           <a href="#servicios">Servicios Estudiantiles <span class="arrow">▼</span></a>
           <div class="dropdown-content">
@@ -247,7 +275,6 @@
           </div>
         </div>
 
-        <!-- Noticias -->
         <div class="dropdown">
           <a href="#noticias">Noticias <span class="arrow">▼</span></a>
           <div class="dropdown-content">
@@ -260,7 +287,6 @@
     </div>
   </nav>
 
-  <!-- Hero -->
   <header class="hero">
     <div>
       <h1>Instituto Profesional de Educación Comunitaria</h1>
@@ -270,7 +296,6 @@
     </div>
   </header>
 
-  <!-- Sección Modalidades -->
   <section class="section" id="modalidades">
     <h2>Ofertas Educativas</h2>
     <div class="grid">
@@ -292,13 +317,11 @@
     </div>
   </section>
 
-  <!-- Footer -->
   <footer id="contacto">
     <p>© <span id="year"></span> IPEC Santo Domingo, Heredia — Fundado en 1992</p>
     <a href="https://www.google.com/maps/@10.208346,-84.168281,9z?hl=es&entry=ttu" target="_blank">🗺️ Mapa del sitio</a>
   </footer>
 
-  <!-- Redes Sociales -->
   <div class="social-fixed">
     <a href="https://www.facebook.com/IPECSantoDomingoCr" target="_blank"><i class="fab fa-facebook-f"></i></a>
     <a href="mailto:ipec.santodomingocentro@mep.go.cr"><i class="fas fa-envelope"></i></a>
@@ -306,6 +329,31 @@
 
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    const menuToggle = document.getElementById('menuToggle');
+    const mainMenu = document.getElementById('mainMenu');
+
+    menuToggle.addEventListener('click', () => {
+      const open = mainMenu.classList.toggle('open');
+      menuToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!mainMenu.contains(e.target) && !menuToggle.contains(e.target)) {
+        mainMenu.classList.remove('open');
+        menuToggle.setAttribute('aria-expanded','false');
+      }
+    });
+
+    document.querySelectorAll('.dropdown > a').forEach(trigger => {
+      trigger.addEventListener('click', (e) => {
+        if (window.innerWidth <= 960) {
+          e.preventDefault();
+          const parent = trigger.parentElement;
+          parent.classList.toggle('open');
+        }
+      });
+    });
   </script>
 </body>
 </html>
