@@ -43,12 +43,12 @@
       object-fit:contain;image-rendering:-webkit-optimize-contrast;
     }
 
-    /* Enlaces */
+    /* Enlaces base */
     .navlinks{display:flex;gap:18px;align-items:center}
     .navlinks a{color:var(--text);padding:8px 12px;border-radius:10px;text-decoration:none;display:flex;align-items:center;gap:6px;transition:.25s}
     .navlinks a:hover{background:var(--glass)}
 
-    /* Dropdown base */
+    /* Dropdowns: un solo disparador */
     .dropdown{position:relative}
     .dd-trigger{
       background:transparent;border:0;color:var(--text);cursor:pointer;
@@ -68,11 +68,9 @@
     }
     .dropdown-panel a:hover{background:var(--primary); color:#000}
 
-    /* Desktop: abre por hover */
+    /* Desktop: abre por hover (sin JS) */
     @media (min-width:1025px){
-      .dd-trigger{display:none}
       .dropdown:hover .dropdown-panel{display:flex}
-      .dropdown > a.top-link{display:flex}
     }
 
     /* Botones destacados */
@@ -141,12 +139,9 @@
         top:var(--menuTop,150px);background:#0a1224;border:2px solid #f5b400;
         border-radius:14px;box-shadow:0 20px 50px rgba(0,0,0,.65);
         padding:14px;gap:6px;z-index:10000;font-size:1.06rem;flex-direction:column;
+        max-height:calc(100vh - var(--menuTop) - 16px); overflow-y:auto;
       }
       .navlinks.open{display:flex !important}
-
-      /* En móvil: usamos botón acordeón, ocultamos el link superior visible de desktop */
-      .dropdown > a.top-link{display:none}
-      .dd-trigger{display:flex}
 
       .dropdown-panel{
         position:static; display:none; background:#0d1b3a;
@@ -183,13 +178,13 @@
       <div class="navlinks" id="mainMenu">
         <a href="#inicio">Inicio</a>
 
-        <!-- Ofertas: desktop = link; móvil = acordeón -->
+        <!-- Ofertas -->
         <div class="dropdown">
-          <a class="top-link" href="#modalidades">Ofertas Educativas</a>
           <button class="dd-trigger" type="button" aria-expanded="false" aria-controls="dd-ofertas">
             Ofertas Educativas <span class="arrow">▼</span>
           </button>
           <div class="dropdown-panel" id="dd-ofertas" role="menu">
+            <a href="#modalidades" role="menuitem">Sección: Ofertas</a>
             <a href="IPEC_Tecnologico.html" role="menuitem">🎓 Carrera Técnica</a>
             <a href="plan.html" role="menuitem">📘 Plan de Estudio</a>
             <a href="cursos.html" role="menuitem">🧩 Cursos Libres</a>
@@ -198,7 +193,6 @@
 
         <!-- Servicios -->
         <div class="dropdown">
-          <a class="top-link" href="#servicios">Servicios Estudiantiles</a>
           <button class="dd-trigger" type="button" aria-expanded="false" aria-controls="dd-serv">
             Servicios Estudiantiles <span class="arrow">▼</span>
           </button>
@@ -211,7 +205,6 @@
 
         <!-- Noticias -->
         <div class="dropdown">
-          <a class="top-link" href="#noticias">Noticias</a>
           <button class="dd-trigger" type="button" aria-expanded="false" aria-controls="dd-news">
             Noticias <span class="arrow">▼</span>
           </button>
@@ -288,26 +281,26 @@
       function openMenu(){mainMenu.classList.add('open');menuToggle.setAttribute('aria-expanded','true');backdrop.classList.add('show');setMenuTop();}
       function closeMenu(){mainMenu.classList.remove('open');menuToggle.setAttribute('aria-expanded','false');backdrop.classList.remove('show');}
 
+      // Toggle menú
       menuToggle.addEventListener('click',e=>{e.stopPropagation();mainMenu.classList.contains('open')?closeMenu():openMenu();});
       backdrop.addEventListener('click',closeMenu);
       document.addEventListener('click',e=>{if(!mainMenu.contains(e.target)&&!menuToggle.contains(e.target)) closeMenu();});
 
-      // Acordeón móvil
+      // Acordeón móvil (un solo disparador)
       document.querySelectorAll('.dd-trigger').forEach(btn=>{
         btn.addEventListener('click',e=>{
-          // En móvil: abre/cierra panel sin navegar
           if(window.innerWidth<=1024){
             e.preventDefault();
             const dd=btn.closest('.dropdown');
             const isOpen=dd.classList.toggle('open');
             btn.setAttribute('aria-expanded',isOpen?'true':'false');
-            // Cierra otros
+            // Cerrar otros
             document.querySelectorAll('.dropdown').forEach(o=>{if(o!==dd) o.classList.remove('open');});
           }
         });
       });
 
-      // Cerrar menú al elegir cualquier enlace del panel en móvil
+      // Cerrar menú al elegir enlace en móvil
       document.querySelectorAll('#mainMenu a').forEach(a=>{
         a.addEventListener('click',()=>{ if(window.innerWidth<=1024) closeMenu(); });
       });
