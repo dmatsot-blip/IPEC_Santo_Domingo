@@ -60,11 +60,12 @@
     .contact-bar a{color:#ffd166;text-decoration:none;font-weight:600}
 
     .navbar{
-      position:fixed;top:45px;left:0;right:0;height:80px;
+      position:fixed;top:45px;left:0;right:0;height:auto;
       display:flex;align-items:center;
       background:rgba(0,0,0,.45);
       backdrop-filter:blur(10px);
       z-index:10;
+      padding:10px 0;
     }
     .container{
       width:min(1100px,100%);
@@ -74,8 +75,9 @@
       align-items:center;
       justify-content:space-between;
       gap:16px;
+      flex-wrap:wrap;
     }
-    .left-actions{display:flex;align-items:center;gap:12px}
+    .left-actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
     .btn-regresar{
       display:inline-flex;align-items:center;gap:10px;
       background:linear-gradient(135deg,var(--secondary),var(--primary));
@@ -142,7 +144,7 @@
     @media(max-width:920px){.product-content{grid-template-columns:1fr 1fr}}
     @media(max-width:600px){.product-content{grid-template-columns:1fr}}
 
-    /* ===== FIX: desplegables completos y sin corte ===== */
+    /* ===== FIX: desplegables completos ===== */
     .dropdown-menu {
       max-height: 80vh;
       overflow-y: auto;
@@ -150,21 +152,7 @@
       -webkit-overflow-scrolling: touch;
     }
     @media (max-width: 600px) {
-      .dropdown-menu {
-        left: 0;
-        right: 0;
-        width: 92vw;
-        margin: 0 auto;
-        top: 60px;
-        max-height: 85vh;
-        padding: 18px 16px;
-      }
-    }
-
-    /* === Móvil: dropdown como panel completo, sin cortes === */
-    @media (max-width: 600px) {
       .dropdown { position: static; }
-
       .dropdown-menu {
         position: fixed !important;
         left: 2vw;
@@ -177,11 +165,29 @@
         z-index: 9999;
         display: none;
       }
-
       .dropdown[aria-expanded="true"] .dropdown-menu { display: block !important; }
-
       .dropdown-toggle { padding: 12px 16px; }
       .req-box { padding-bottom: 8px; }
+    }
+
+    /* ===== Móvil: botones debajo de Regresar ===== */
+    @media (max-width: 768px) {
+      .left-actions {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+      .btn-regresar {
+        width: 100%;
+        justify-content: center;
+      }
+      .dropdown {
+        width: 100%;
+      }
+      .dropdown-toggle {
+        width: 100%;
+        justify-content: center;
+      }
     }
   </style>
 </head>
@@ -226,8 +232,8 @@
                 <li><i class="fas fa-graduation-cap"></i> Laboratorios para el desarrollo de las clases que requieran apoyo.</li>
                 <li><i class="fas fa-utensils"></i> Acceso a comedor estudiantil.</li>
                 <li><i class="fas fa-bus"></i> Beca de Transporte.</li>
-                <li><i class="fas fa-hands-helping"></i> Excelente infraestructura y seguridad dentro de las instalaciones. </li>
-                <li><i class="fas fa-file-alt"></i> Convenios con instituciones públicas y privadas para realizar la Prácticas Profesionales.</li>
+                <li><i class="fas fa-hands-helping"></i> Excelente infraestructura y seguridad dentro de las instalaciones.</li>
+                <li><i class="fas fa-file-alt"></i> Convenios con instituciones públicas y privadas para realizar las Prácticas Profesionales.</li>
               </ul>
             </div>
           </div>
@@ -309,5 +315,4 @@
   </script>
 </body>
 </html>
-
 
