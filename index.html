@@ -1,294 +1,69 @@
 <!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>IPEC — Portada</title>
+dropdowns.forEach(d => {
+const summary = d.querySelector('summary');
+if (!summary) return;
 
-  <!-- Fuentes e iconos -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-  <style>
-    :root{
-      --bg:#0b1220;
-      --primary:#f5b400;
-      --text:#ffffff;
-      --muted:#d1d5db;
-      --glass: rgba(255,255,255,.08);
-      --shadow: 0 10px 30px rgba(0,0,0,.35);
-      --contactH: 60px;   /* Alto barra de info */
-      --navH: 110px;      /* Alto barra de navegación */
-      --containerW: 1400px;
-    }
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{margin:0;font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;}
+// Escritorio: abrir al pasar el mouse y evitar toggle por click
+summary.addEventListener('mouseenter', () => {
+if (!mqDesktop.matches) return;
+closeAll();
+d.setAttribute('open','');
+});
+summary.addEventListener('click', (e) => {
+if (!mqDesktop.matches) return;
+e.preventDefault();
+});
+d.addEventListener('mouseleave', () => {
+if (!mqDesktop.matches) return;
+d.removeAttribute('open');
+});
+});
 
-    /* Barra superior */
-    .contact-bar{position:fixed;top:0;left:0;right:0;height:var(--contactH);display:flex;align-items:center;justify-content:center;background:linear-gradient(90deg,#003366,#001a33);color:#fff;border-bottom:2px solid var(--primary);z-index:3000;text-align:center;padding:0 12px;font-weight:600;font-size:.98rem;}
-    .contact-bar a{color:#ffd166;text-decoration:none;font-weight:700;}
 
-    /* Navegación */
-    .nav{position:fixed;left:0;right:0;top:var(--contactH);min-height:var(--navH);background:rgba(0,0,0,.55);backdrop-filter:blur(8px);border-bottom:2px solid rgba(245,180,0,.4);box-shadow:0 6px 18px rgba(245,180,0,.25);z-index:3200;display:flex;align-items:center;justify-content:center;}
-    .nav .container{width:min(var(--containerW),100%);min-height:var(--navH);display:flex;align-items:center;justify-content:space-between;gap:16px;padding:0 24px;}
+navlinks.addEventListener('mouseleave', () => {
+if (!mqDesktop.matches) return;
+closeAll();
+});
 
-    .brand{display:flex;align-items:center;gap:14px}
-    .brand img{display:block;height:auto;max-height:calc(var(--navH) - 20px);width:auto;object-fit:contain;border-radius:8px;}
 
-    .navlinks{display:flex;align-items:center;gap:22px;font-size:1.08rem;}
-    .navlinks a,.navlinks summary{color:var(--text);text-decoration:none;padding:10px 16px;border-radius:10px;transition:.2s;list-style:none;cursor:pointer;display:flex;align-items:center;gap:8px;}
-    .navlinks a:hover,.navlinks summary:hover{background:var(--glass);}
+// Móvil: al abrir uno, cerrar los otros para evitar acumulación
+navlinks.addEventListener('toggle', (e) => {
+if (mqDesktop.matches) return;
+const t = e.target;
+if (t.tagName !== 'DETAILS' || !t.open) return;
+dropdowns.forEach(d => { if (d !== t) d.removeAttribute('open'); });
+}, true);
+})();
 
-    details.dropdown{position:relative}
-    details.dropdown>summary{display:flex;align-items:center;gap:8px;user-select:none}
-    details.dropdown>summary .arrow{transition:.2s transform}
-    details[open] > summary .arrow{transform:rotate(180deg)}
-    details.dropdown>summary::-webkit-details-marker{display:none}
 
-    .dropdown-content{
-      position:absolute;top:52px;left:0;min-width:300px;padding:12px 0;
-      background:rgba(20,20,30,.98);border-radius:12px;box-shadow:0 8px 20px rgba(0,0,0,.45);
-      display:none;flex-direction:column;z-index:3600;border:1px solid rgba(245,180,0,.4)
-    }
-    details[open] .dropdown-content{display:flex}
-    .dropdown-content a{text-align:left;padding:12px 18px;white-space:normal}
-    .dropdown-content a:hover{background:var(--primary);color:#000}
+// Bloquear scroll del fondo cuando el menú móvil está abierto
+(function(){
+const chk = document.getElementById('navchk');
+if(!chk) return;
+function toggleBody(){ document.body.classList.toggle('menu-open', chk.checked); }
+chk.addEventListener('change', toggleBody);
+// Cerrar con tecla Escape en móvil
+window.addEventListener('keydown', (e)=>{ if(e.key==='Escape'){ chk.checked=false; toggleBody(); } });
+toggleBody();
+})();
 
-    /* Botones */
-    .btn-offer,.btn-ruta{position:relative;display:inline-block;background:var(--primary);color:#000;padding:10px 16px;border-radius:10px;font-weight:700;text-decoration:none;overflow:hidden;transition:.3s;box-shadow:0 0 10px rgba(245,180,0,.4)}
-    .btn-offer::before,.btn-ruta::before{content:"";position:absolute;inset:0;left:-75%;background:linear-gradient(120deg,rgba(255,255,255,.6),transparent,rgba(255,255,255,.2));transform:skewX(-25deg);transition:.7s}
-    .btn-offer:hover::before,.btn-ruta:hover::before{left:125%}
-    .btn-offer:hover,.btn-ruta:hover{background:#fff3b0;transform:scale(1.05)}
 
-    /* Hero */
-    .hero{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:calc(var(--contactH) + var(--navH) + 40px) 20px 60px;text-align:center;position:relative;overflow:hidden}
-    .hero::before{content:"";position:absolute;inset:0;background:linear-gradient(120deg,#0b1220,#1e3c72,#2a5298,#f5b400);background-size:300% 300%;animation:gm 15s ease-in-out infinite;z-index:-1}
-    @keyframes gm{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
-    .hero h1{font-size:2.6rem;margin:.2em 0;color:var(--primary);text-shadow:0 0 15px rgba(245,180,0,.7);font-weight:800}
-    .hero p{max-width:720px;margin:16px auto;color:var(--muted)}
-
-    /* Secciones */
-    .section{padding:80px 20px}
-    .section h2{font-size:2rem;margin:0 auto 24px;text-align:center}
-    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;width:min(var(--containerW),100%);margin:0 auto}
-    .card{background:var(--glass);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:22px;box-shadow:var(--shadow);backdrop-filter:blur(6px);transition:transform .25s,background .25s}
-    .card:hover{transform:translateY(-4px);background:rgba(255,255,255,.12)}
-
-    /* Footer */
-    footer{border-top:1px solid rgba(255,255,255,.2);padding:20px;text-align:center;color:var(--muted);background:rgba(0,0,0,.3)}
-    footer a{display:inline-block;margin-top:10px;color:#ffd166;text-decoration:none;font-weight:600;transition:.3s}
-    footer a:hover{color:#fff;text-shadow:0 0 10px rgba(245,180,0,.8);transform:scale(1.05)}
-
-    /* Redes fijas */
-    .social-fixed{position:fixed;bottom:20px;left:20px;display:flex;flex-direction:column;gap:10px;z-index:200}
-    .social-fixed a{color:#fff;font-size:1.5rem;background:rgba(255,255,255,.1);padding:10px;border-radius:50%;transition:.3s}
-    .social-fixed a:hover{background:var(--primary);color:#000;transform:scale(1.2);box-shadow:0 0 10px rgba(245,180,0,.8)}
-
-    /* Menú móvil */
-    #navchk{display:none}
-    .menu-toggle{display:none;position:fixed;right:16px;top:calc(var(--contactH) + 16px);z-index:3400;background:#0f172a;border:2px solid var(--primary);color:#fff;padding:12px 18px;border-radius:14px;font-size:1.6rem;line-height:1;cursor:pointer;box-shadow:0 8px 24px rgba(0,0,0,.5)}
-
-    @media (max-width:1024px){
-      .menu-toggle{display:block}
-      .navlinks{
-        position:fixed;inset:0;top:calc(var(--contactH) + var(--navH));
-        background:#0a1224;border-top:2px solid var(--primary);
-        display:none;flex-direction:column;gap:12px;padding:20px 20px 60px;z-index:3300;
-        /* Menú alto y desplazable */
-        height:calc(100vh - (var(--contactH) + var(--navH)));
-        height:calc(100svh - (var(--contactH) + var(--navH)));
-        height:calc(100dvh - (var(--contactH) + var(--navH)));
-        overflow:auto;font-size:1.08rem
-      }
-      /* Mostrar menú cuando el checkbox está activo */
-      #navchk:checked ~ nav.nav .navlinks{display:flex}
-
-      /* Dropdown en móvil */
-      .dropdown-content{
-        position:relative;top:auto;left:auto;min-width:unset;width:100%;
-        background:#0d1b3a;border:1px solid rgba(245,180,0,.45);
-        border-radius:12px;padding:10px 8px;margin:6px 0 2px 0;box-shadow:none;z-index:3600
-      }
-      .dropdown-content a{padding:12px 14px;white-space:normal}
-      .brand img{max-height:82px}
-    }
-
-    @media (max-width:768px){
-      .contact-bar{height:auto;padding:8px 10px;font-size:0.9rem;line-height:1.2}
-      .nav{padding:10px 0}
-      .nav .container{flex-direction:column;align-items:center;gap:8px}
-      .brand img{max-height:70px;width:auto;height:auto;object-fit:contain}
-      .hero{padding-top:calc(var(--contactH) + var(--navH) + 80px)}
-      .hero h1{font-size:1.8rem;line-height:1.2}
-    }
-
-    /* Evita scroll del fondo con menú abierto */
-    body.menu-open{overflow:hidden}
-  </style>
-</head>
-<body>
-  <!-- Toggle del menú -->
-  <input type="checkbox" id="navchk" aria-hidden="true" />
-
-  <!-- Barra de contacto -->
-  <nav class="contact-bar">
-    <p><strong>INFORMACIÓN:</strong> 2244-2343 | IPEC de Santo Domingo | <a href="mailto:ipec.santodomingocentro@mep.go.cr">ipec.santodomingocentro@mep.go.cr</a></p>
-  </nav>
-
-  <!-- Navegación principal -->
-  <nav class="nav" aria-label="Principal">
-    <div class="container">
-      <div class="brand">
-        <img src="LogoMepnew.jpg" alt="Logo MEP" onerror="this.src='LogoMepnew.png'">
-      </div>
-
-      <label class="menu-toggle" for="navchk" aria-controls="mainMenu" aria-label="Abrir menú"><i class="fa-solid fa-bars"></i></label>
-
-      <div class="navlinks" id="mainMenu">
-        <a href="#">Inicio</a>
-
-        <!-- OFERTAS EDUCATIVAS -->
-        <details class="dropdown">
-          <summary>Ofertas Educativas <span class="arrow">▼</span></summary>
-          <div class="dropdown-content" id="panel-ofertas">
-            <a href="IPEC_Tecnologico.html">🎓 Carrera Técnica</a>
-            <a href="plan.html">📘 Plan de Estudio</a>
-            <a href="cursos.html">🧩 Cursos Libres</a>
-          </div>
-        </details>
-
-        <details class="dropdown">
-          <summary>Servicios Estudiantiles <span class="arrow">▼</span></summary>
-          <div class="dropdown-content">
-            <a href="#comedor">🍽️ Comedor Estudiantil</a>
-            <a href="#transporte">🚌 Servicio de Transporte</a>
-            <a class="btn-ruta" href="rutabus.pdf" target="_blank" rel="noopener">Ver ruta</a>
-          </div>
-        </details>
-
-        <details class="dropdown">
-          <summary>Noticias <span class="arrow">▼</span></summary>
-          <div class="dropdown-content">
-            <p style="margin:0;padding:8px 12px;text-align:center">📰 Matrícula abierta desde el mes de <strong>Noviembre</strong></p>
-          </div>
-        </details>
-
-        <a href="#contacto">Contacto</a>
-      </div>
-    </div>
-  </nav>
-
-  <!-- Hero -->
-  <header class="hero">
-    <div>
-      <h1>Instituto Profesional de Educación Comunitaria</h1>
-      <h1>Santo Domingo</h1>
-      <img src="ipeclogo.png" alt="Logo IPEC" style="margin-top:20px; width:180px;">
-      <p>“Saber, Trabajar y Convivir” — Formamos personas integrales con excelencia académica y compromiso social.</p>
-    </div>
-  </header>
-
-  <!-- Ofertas -->
-  <section class="section" id="modalidades">
-    <h2>Ofertas Educativas</h2>
-    <div class="grid">
-      <div class="card" id="plan">
-        <h3>Plan de Estudio</h3>
-        <p>Garantiza el acceso, la permanencia y aprendizajes significativos en ámbitos académicos y técnicos.</p>
-        <a class="btn-offer" href="plandeestudio.pdf" target="_blank" rel="noopener">Ver oferta académica 2026</a>
-      </div>
-      <div class="card" id="carreras">
-        <h3>Carreras Técnicas</h3>
-        <p>Formación técnica del III Ciclo y Diversificada para insertarse al mundo laboral o continuar estudios.</p>
-        <a class="btn-offer" href="ofertaeducativa.jpg" target="_blank" rel="noopener">Ver oferta académica 2026</a>
-      </div>
-      <div class="card" id="cursos">
-        <h3>Cursos Libres</h3>
-        <p>Programas para jóvenes y personas adultas que buscan actualizar habilidades o aprender algo nuevo.</p>
-        <a class="btn-offer" href="cursos.pdf" target="_blank" rel="noopener">Ver oferta académica 2026</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer id="contacto">
-    <p>© <span id="year"></span> IPEC Santo Domingo, Heredia — Fundado en 1992</p>
-    <a href="https://www.google.com/maps/@10.208346,-84.168281,9z?hl=es&entry=ttu" target="_blank" rel="noopener">🗺️ Mapa del sitio</a>
-  </footer>
-
-  <!-- Redes -->
-  <div class="social-fixed" aria-label="Redes sociales">
-    <a href="https://www.facebook.com/IPECSantoDomingoCr" target="_blank" rel="noopener" aria-label="Facebook IPEC Santo Domingo"><i class="fab fa-facebook-f"></i></a>
-    <a href="mailto:ipec.santodomingocentro@mep.go.cr" aria-label="Correo IPEC Santo Domingo"><i class="fas fa-envelope"></i></a>
-  </div>
-
-  <!-- Utilidades -->
-  <script>
-    // Año automático en footer
-    (function(){var y=document.getElementById('year');if(y)y.textContent=new Date().getFullYear();})();
-
-    // Cerrar menú móvil al elegir un enlace
-    document.getElementById('mainMenu').addEventListener('click',function(e){
-      const a=e.target.closest('a');
-      if(!a) return;
-      const chk=document.getElementById('navchk');
-      if(chk && window.matchMedia('(max-width:1024px)').matches) chk.checked=false;
-    });
-
-    // Control de dropdowns en escritorio: hover, uno a la vez
-    (function(){
-      const mqDesktop = window.matchMedia('(min-width:1025px)');
-      const navlinks = document.querySelector('.navlinks');
-      if (!navlinks) return;
-      const dropdowns = Array.from(navlinks.querySelectorAll('details.dropdown'));
-
-      function closeAll(){ dropdowns.forEach(d => d.removeAttribute('open')); }
-
-      dropdowns.forEach(d => {
-        const summary = d.querySelector('summary');
-        if (!summary) return;
-
-        // Escritorio: abrir al pasar el mouse y evitar toggle por click
-        summary.addEventListener('mouseenter', () => {
-          if (!mqDesktop.matches) return;
-          closeAll();
-          d.setAttribute('open','');
-        });
-        summary.addEventListener('click', (e) => {
-          if (!mqDesktop.matches) return;
-          e.preventDefault();
-        });
-        d.addEventListener('mouseleave', () => {
-          if (!mqDesktop.matches) return;
-          d.removeAttribute('open');
-        });
-      });
-
-      navlinks.addEventListener('mouseleave', () => {
-        if (!mqDesktop.matches) return;
-        closeAll();
-      });
-
-      // Móvil: al abrir uno, cerrar los otros para evitar acumulación
-      navlinks.addEventListener('toggle', (e) => {
-        if (mqDesktop.matches) return;
-        const t = e.target;
-        if (t.tagName !== 'DETAILS' || !t.open) return;
-        dropdowns.forEach(d => { if (d !== t) d.removeAttribute('open'); });
-      }, true);
-    })();
-
-    // Bloquear scroll del fondo cuando el menú móvil está abierto
-    (function(){
-      const chk = document.getElementById('navchk');
-      if(!chk) return;
-      function toggleBody(){ document.body.classList.toggle('menu-open', chk.checked); }
-      chk.addEventListener('change', toggleBody);
-      // Cerrar con tecla Escape en móvil
-      window.addEventListener('keydown', (e)=>{ if(e.key==='Escape'){ chk.checked=false; toggleBody(); } });
-      toggleBody();
-    })();
-  </script>
+// Calcular --safeTop dinámicamente para evitar cortes del menú
+(function(){
+const root = document.documentElement;
+const contact = document.querySelector('.contact-bar');
+const nav = document.querySelector('.nav');
+function setSafeTop(){
+const top = (contact?.offsetHeight || 0) + (nav?.offsetHeight || 0);
+root.style.setProperty('--safeTop', top + 'px');
+}
+setSafeTop();
+window.addEventListener('resize', setSafeTop);
+window.addEventListener('orientationchange', setSafeTop);
+// Ajuste tras cargar fuentes/íconos
+window.addEventListener('load', setSafeTop);
+})();
+</script>
 </body>
 </html>
