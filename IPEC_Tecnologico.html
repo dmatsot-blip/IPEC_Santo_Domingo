@@ -144,22 +144,44 @@
 
     /* ===== FIX: desplegables completos y sin corte ===== */
     .dropdown-menu {
-      /* ajustes de visibilidad y scroll */
-      max-height: 80vh;              /* ocupa hasta 80% de la pantalla */
-      overflow-y: auto;              /* si se pasa, permite scroll interno */
-      overscroll-behavior: contain;  /* evita saltos de scroll en iOS/Android */
-      -webkit-overflow-scrolling: touch; /* scroll suave en iOS */
+      max-height: 80vh;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      -webkit-overflow-scrolling: touch;
     }
     @media (max-width: 600px) {
       .dropdown-menu {
         left: 0;
         right: 0;
-        width: 92vw;                 /* ancho cómodo en móviles */
+        width: 92vw;
         margin: 0 auto;
         top: 60px;
-        max-height: 85vh;            /* un poco más alto en móvil */
+        max-height: 85vh;
         padding: 18px 16px;
       }
+    }
+
+    /* === Móvil: dropdown como panel completo, sin cortes === */
+    @media (max-width: 600px) {
+      .dropdown { position: static; }
+
+      .dropdown-menu {
+        position: fixed !important;
+        left: 2vw;
+        right: 2vw;
+        width: 96vw;
+        top: calc(125px + env(safe-area-inset-top, 0px));
+        max-height: 80vh;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        z-index: 9999;
+        display: none;
+      }
+
+      .dropdown[aria-expanded="true"] .dropdown-menu { display: block !important; }
+
+      .dropdown-toggle { padding: 12px 16px; }
+      .req-box { padding-bottom: 8px; }
     }
   </style>
 </head>
