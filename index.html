@@ -91,28 +91,47 @@
       .hero h1{font-size:1.8rem;line-height:1.2}
     }
 
-    /* ===== Mejora táctil del menú móvil ===== */
+    /* ===== Extensión vertical del menú móvil ===== */
     @media (max-width: 1024px) {
       .navlinks {
         width: 110vw;
-        left: 2.5vw;
-        padding: 30px 36px 50px;
-        font-size: 1.2rem;
-      }
-      .dropdown-content {
-        width: 100%;
-        padding: 16px 12px;
+        left: -5vw;
+        top: calc(var(--contactH) + var(--navH));
+        height: calc(100vh - var(--contactH) - var(--navH) + 80px);
+        max-height: none;
+        overflow-y: auto;
+        padding: 40px 40px 80px;
+        font-size: 1.25rem;
       }
       .dropdown-content a {
-        display: block;
-        padding: 16px 22px;
+        padding: 18px 26px;
+        font-size: 1.15rem;
+      }
+      .menu-toggle {top: calc(var(--contactH) + 20px);}
+    }
+
+    /* ===== Corrección submenú visible completo ===== */
+    @media (max-width: 1024px) {
+      details.dropdown[open] .dropdown-content {
+        display: flex !important;
+        flex-direction: column;
+        position: relative !important;
+        max-height: none !important;
+        overflow: visible !important;
+        background: #0d1b3a;
+        border: 1px solid rgba(245,180,0,.45);
+        padding: 16px 12px 20px;
+        margin-top: 8px;
+      }
+      .dropdown-content a {
+        padding: 16px 26px;
         font-size: 1.1rem;
         border-radius: 10px;
       }
-      .dropdown-content a:hover {
-        background: rgba(245,180,0,.85);
-        color: #000;
-        transform: scale(1.03);
+      .navlinks {
+        overflow-y: auto !important;
+        height: auto;
+        max-height: none;
       }
     }
   </style>
@@ -224,12 +243,6 @@
   </script>
 </body>
 </html>
-
-
-
-
-
-
 
 
 
