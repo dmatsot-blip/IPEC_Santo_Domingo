@@ -67,6 +67,7 @@
       backdrop-filter:blur(10px);
       z-index:10;
       padding:10px 0;
+      overflow:visible; /* evita recortes */
     }
 
     .container{
@@ -103,12 +104,20 @@
     }
     .dropdown-toggle .arrow{font-size:.8rem;transition:transform .25s ease}
     .dropdown[aria-expanded="true"] .arrow{transform:rotate(180deg)}
+
+    /* FIX: alinear menú al borde derecho y limitar ancho a la ventana */
     .dropdown-menu{
-      position:absolute;top:54px;left:0;
+      position:absolute;top:54px;right:0;left:auto;
       background:#e6f3ff;color:#0b1626;
-      min-width:320px;border-radius:14px;
+      min-width:320px;
+      max-width:92vw;            /* no se sale del viewport */
+      border-radius:14px;
       box-shadow:0 14px 30px rgba(0,0,0,.35);
       padding:14px;display:none;z-index:20;
+      max-height:80vh;           /* scroll interno si es largo */
+      overflow-y:auto;
+      overscroll-behavior:contain;
+      -webkit-overflow-scrolling:touch;
     }
     .dropdown[aria-expanded="true"] .dropdown-menu{display:block}
 
@@ -153,13 +162,6 @@
     @media(max-width:920px){.product-content{grid-template-columns:1fr 1fr}}
     @media(max-width:600px){.product-content{grid-template-columns:1fr}}
 
-    .dropdown-menu {
-      max-height: 80vh;
-      overflow-y: auto;
-      overscroll-behavior: contain;
-      -webkit-overflow-scrolling: touch;
-    }
-
     @media (max-width: 768px) {
       .left-actions {
         flex-direction: column;
@@ -176,13 +178,9 @@
         width: 100%;
         gap: 10px;
       }
-      .sub-actions .dropdown {
-        flex: 1;
-      }
-      .dropdown-toggle {
-        width: 100%;
-        justify-content: center;
-      }
+      .sub-actions .dropdown { flex: 1; }
+      .dropdown-toggle { width: 100%; justify-content: center; }
+      .dropdown-menu { min-width:auto; } /* usa el 92vw en móvil */
     }
 
     @media (min-width: 769px) {
@@ -203,7 +201,7 @@
   <div class="particles-bg" aria-hidden="true"></div>
 
   <nav class="contact-bar">
-    <p><strong>INFORMACIÓN:</strong> 2244-2343 | IPEC de Santo Domingo | 
+    <p><strong>INFORMACIÓN:</strong> 2244-2343 | IPEC de Santo Domingo |
       <a href="mailto:ipec.santodomingocentro@mep.go.cr">ipec.santodomingocentro@mep.go.cr</a>
     </p>
   </nav>
@@ -241,13 +239,13 @@
                   <li><i class="fas fa-graduation-cap"></i> Laboratorios para el desarrollo de las clases.</li>
                   <li><i class="fas fa-utensils"></i> Acceso a comedor estudiantil.</li>
                   <li><i class="fas fa-bus"></i> Beca de Transporte.</li>
-                  <li><i class="fas fa-hands-helping"></i> Excelente infraestructura y seguridad.</li>
+                  <li><i class="fas fa-shield-alt"></i> Excelente infraestructura y seguridad.</li>
                   <li><i class="fas fa-file-alt"></i> Convenios con instituciones públicas y privadas.</li>
                 </ul>
               </div>
             </div>
           </div>
-        </div>
+        </div><!-- /.sub-actions -->
       </div>
     </div>
   </nav>
@@ -324,3 +322,5 @@
   </script>
 </body>
 </html>
+
+
