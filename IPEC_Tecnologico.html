@@ -170,19 +170,25 @@
       .req-box { padding-bottom: 8px; }
     }
 
-    /* ===== Móvil: botones debajo de Regresar ===== */
+    /* ===== Móvil: Regresar arriba y botones lado a lado ===== */
     @media (max-width: 768px) {
       .left-actions {
         flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
+        align-items: stretch;
+        width: 100%;
       }
       .btn-regresar {
         width: 100%;
         justify-content: center;
       }
-      .dropdown {
+      .sub-actions {
+        display: flex;
+        justify-content: space-between;
         width: 100%;
+        gap: 10px;
+      }
+      .sub-actions .dropdown {
+        flex: 1;
       }
       .dropdown-toggle {
         width: 100%;
@@ -207,34 +213,36 @@
           <i class="fas fa-arrow-left"></i><span>Regresar</span>
         </a>
 
-        <div class="dropdown" data-dropdown aria-expanded="false">
-          <a href="#" class="dropdown-toggle">Requisitos <span class="arrow">▼</span></a>
-          <div class="dropdown-menu">
-            <div class="req-box">
-              <h4 class="req-title">Requisitos</h4>
-              <ul class="req-list">
-                <li><i class="fas fa-id-card"></i> Copia de la cédula</li>
-                <li><i class="fas fa-camera"></i> 2 fotografías pasaporte</li>
-                <li><i class="fas fa-graduation-cap"></i> Título de bachillerato o noveno año aprobado</li>
-                <li><i class="fas fa-file-alt"></i> Certificación de notas (si solo tiene 5° aprobado)</li>
-                <li><i class="fas fa-file-alt"></i> Póliza Estudiantil</li>
-              </ul>
+        <div class="sub-actions">
+          <div class="dropdown" data-dropdown aria-expanded="false">
+            <a href="#" class="dropdown-toggle">Requisitos <span class="arrow">▼</span></a>
+            <div class="dropdown-menu">
+              <div class="req-box">
+                <h4 class="req-title">Requisitos</h4>
+                <ul class="req-list">
+                  <li><i class="fas fa-id-card"></i> Copia de la cédula</li>
+                  <li><i class="fas fa-camera"></i> 2 fotografías pasaporte</li>
+                  <li><i class="fas fa-graduation-cap"></i> Título de bachillerato o noveno año aprobado</li>
+                  <li><i class="fas fa-file-alt"></i> Certificación de notas (si solo tiene 5° aprobado)</li>
+                  <li><i class="fas fa-file-alt"></i> Póliza Estudiantil</li>
+                </ul>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div class="dropdown" data-dropdown aria-expanded="false">
-          <a href="#" class="dropdown-toggle">Beneficios <span class="arrow">▼</span></a>
-          <div class="dropdown-menu">
-            <div class="req-box">
-              <h4 class="req-title">Beneficios del estudiante</h4>
-              <ul class="req-list">
-                <li><i class="fas fa-graduation-cap"></i> Laboratorios para el desarrollo de las clases que requieran apoyo.</li>
-                <li><i class="fas fa-utensils"></i> Acceso a comedor estudiantil.</li>
-                <li><i class="fas fa-bus"></i> Beca de Transporte.</li>
-                <li><i class="fas fa-hands-helping"></i> Excelente infraestructura y seguridad dentro de las instalaciones.</li>
-                <li><i class="fas fa-file-alt"></i> Convenios con instituciones públicas y privadas para realizar las Prácticas Profesionales.</li>
-              </ul>
+          <div class="dropdown" data-dropdown aria-expanded="false">
+            <a href="#" class="dropdown-toggle">Beneficios <span class="arrow">▼</span></a>
+            <div class="dropdown-menu">
+              <div class="req-box">
+                <h4 class="req-title">Beneficios del estudiante</h4>
+                <ul class="req-list">
+                  <li><i class="fas fa-graduation-cap"></i> Laboratorios para el desarrollo de las clases.</li>
+                  <li><i class="fas fa-utensils"></i> Acceso a comedor estudiantil.</li>
+                  <li><i class="fas fa-bus"></i> Beca de Transporte.</li>
+                  <li><i class="fas fa-hands-helping"></i> Excelente infraestructura y seguridad.</li>
+                  <li><i class="fas fa-file-alt"></i> Convenios con instituciones públicas y privadas.</li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
