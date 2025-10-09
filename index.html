@@ -20,8 +20,7 @@
       --contactH: 60px;   /* Alto barra de info */
       --navH: 110px;      /* Alto barra de navegación */
       --containerW: 1400px;
-      /* Fallback; se recalcula por JS según alturas reales */
-      --safeTop: calc(var(--contactH) + var(--navH));
+      --safeTop: calc(var(--contactH) + var(--navH)); /* recalculado por JS */
     }
     *{box-sizing:border-box}
     html{scroll-behavior:smooth}
@@ -89,21 +88,21 @@
 
     /* Menú móvil */
     #navchk{display:none}
-    .menu-toggle{display:none;position:fixed;right:16px;top:calc(var(--contactH) + 16px);z-index:3400;background:#0f172a;border:2px solid var(--primary);color:#fff;padding:12px 18px;border-radius:14px;font-size:1.6rem;line-height:1;cursor:pointer;box-shadow:0 8px 24px rgba(0,0,0,.5)}
+    .menu-toggle{display:none;position:fixed;right:16px;top:calc(var(--contactH) + 16px);z-index:5400;background:#0f172a;border:2px solid var(--primary);color:#fff;padding:12px 18px;border-radius:14px;font-size:1.6rem;line-height:1;cursor:pointer;box-shadow:0 8px 24px rgba(0,0,0,.5)}
 
+    /* ====== SOLO MÓVIL/TABLET ====== */
     @media (max-width:1024px){
       .menu-toggle{display:block}
+
       .navlinks{
         position:fixed;inset:0;top:0;
         background:#0a1224;border-top:2px solid var(--primary);
         display:none;flex-direction:column;gap:12px;
-        padding:calc(var(--safeTop)) 20px  max(60px, env(safe-area-inset-bottom));
+        padding:calc(var(--safeTop)) 20px max(60px, env(safe-area-inset-bottom));
         z-index:5000;
-        /* Panel ocupa toda la pantalla visible, restando el encabezado real */
-        height:calc(100dvh - var(--safeTop));
+        height:calc(100dvh - 0px);
         overflow:auto;font-size:1.08rem
       }
-      /* Mostrar menú cuando el checkbox está activo */
       #navchk:checked ~ nav.nav .navlinks{display:flex}
 
       /* Dropdown en móvil */
@@ -115,27 +114,10 @@
       .dropdown-content a{padding:12px 14px;white-space:normal}
       .brand img{max-height:82px}
     }
-      .navlinks{
-        position:fixed;inset:0;top:calc(var(--contactH) + var(--navH));
-        background:#0a1224;border-top:2px solid var(--primary);
-        display:none;flex-direction:column;gap:12px;padding:20px 20px 60px;z-index:3300;
-        /* Menú alto y desplazable */
-        height:calc(100vh - (var(--contactH) + var(--navH)));
-        height:calc(100svh - (var(--contactH) + var(--navH)));
-        height:calc(100dvh - (var(--contactH) + var(--navH)));
-        overflow:auto;font-size:1.08rem
-      }
-      /* Mostrar menú cuando el checkbox está activo */
-      #navchk:checked ~ nav.nav .navlinks{display:flex}
 
-      /* Dropdown en móvil */
-      .dropdown-content{
-        position:relative;top:auto;left:auto;min-width:unset;width:100%;
-        background:#0d1b3a;border:1px solid rgba(245,180,0,.45);
-        border-radius:12px;padding:10px 8px;margin:6px 0 2px 0;box-shadow:none;z-index:3600
-      }
-      .dropdown-content a{padding:12px 14px;white-space:normal}
-      .brand img{max-height:82px}
+    /* ====== Escritorio ====== */
+    @media (min-width:1025px){
+      .nav .container{flex-direction:row}
     }
 
     @media (max-width:768px){
@@ -294,7 +276,7 @@
         closeAll();
       });
 
-      // Móvil: al abrir uno, cerrar los otros para evitar acumulación
+      // Móvil: al abrir uno, cerrar los otros
       navlinks.addEventListener('toggle', (e) => {
         if (mqDesktop.matches) return;
         const t = e.target;
@@ -309,7 +291,6 @@
       if(!chk) return;
       function toggleBody(){ document.body.classList.toggle('menu-open', chk.checked); }
       chk.addEventListener('change', toggleBody);
-      // Cerrar con tecla Escape en móvil
       window.addEventListener('keydown', (e)=>{ if(e.key==='Escape'){ chk.checked=false; toggleBody(); } });
       toggleBody();
     })();
@@ -326,9 +307,11 @@
       setSafeTop();
       window.addEventListener('resize', setSafeTop);
       window.addEventListener('orientationchange', setSafeTop);
-      // Ajuste tras cargar fuentes/íconos
       window.addEventListener('load', setSafeTop);
     })();
   </script>
 </body>
 </html>
+
+
+
