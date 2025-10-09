@@ -4,21 +4,26 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>IPEC — Portada</title>
+
+  <!-- Fuentes e iconos -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
     :root{
+      /* Colores y alturas base */
       --bg:#0b1220;
       --primary:#f5b400;
       --text:#ffffff;
       --muted:#d1d5db;
       --glass: rgba(255,255,255,.08);
       --shadow: 0 10px 30px rgba(0,0,0,.35);
-      --contactH: 60px;
-      --navH: 100px;
+      --contactH: 60px;   /* barra superior */
+      --navH: 110px;      /* barra de navegación */
+      --containerW: 1400px; /* ancho máximo contenido */
     }
 
+    *{box-sizing:border-box}
     html{scroll-behavior:smooth}
     body{
       margin:0;
@@ -28,64 +33,73 @@
       overflow-x:hidden;
     }
 
-    /* ===== Barra de contacto ===== */
+    /* ========= BARRA DE CONTACTO ========= */
     .contact-bar{
       position:fixed; top:0; left:0; right:0;
       height:var(--contactH);
+      display:flex; align-items:center; justify-content:center;
       background:linear-gradient(90deg,#003366,#001a33);
-      color:#fff; display:flex; align-items:center; justify-content:center;
-      border-bottom:2px solid var(--primary);
+      color:#fff; border-bottom:2px solid var(--primary);
       z-index:3000;
-      font-weight:600; font-size:.95rem; text-align:center;
-      padding:0 10px;
+      text-align:center;
+      padding:0 12px;
+      font-weight:600; font-size:.98rem;
     }
     .contact-bar a{ color:#ffd166; text-decoration:none; font-weight:700; }
 
-    /* ===== Navegación ===== */
+    /* ========= NAVEGACIÓN ========= */
     .nav{
-      position:fixed; left:0; right:0;
-      top:var(--contactH);
+      position:fixed; left:0; right:0; top:var(--contactH);
       height:var(--navH);
-      display:flex; align-items:center; justify-content:center;
       background:rgba(0,0,0,.55);
       backdrop-filter:blur(8px);
       border-bottom:2px solid rgba(245,180,0,.4);
       box-shadow:0 6px 18px rgba(245,180,0,.25);
       z-index:3200;
+      display:flex; align-items:center; justify-content:center;
     }
     .nav .container{
-      width:min(1100px,100%);
+      width:min(var(--containerW),100%);
+      height:100%;
       display:flex; align-items:center; justify-content:space-between;
-      gap:12px; padding:0 16px;
-    }
-    .brand img{
-      display:block; height:calc(var(--navH) - 20px); object-fit:contain;
+      gap:16px; padding:0 24px;
     }
 
+    /* Logo MEP sin recorte */
+    .brand{display:flex; align-items:center; gap:14px}
+    .brand img{
+      display:block;
+      height:auto; max-height: calc(var(--navH) - 20px);
+      width:auto; object-fit:contain; border-radius:8px;
+    }
+
+    /* Links escritorio */
     .navlinks{
-      display:flex; align-items:center; gap:18px;
+      display:flex; align-items:center; gap:22px; font-size:1.08rem;
     }
     .navlinks a, .navlinks summary{
       color:var(--text); text-decoration:none;
-      padding:8px 12px; border-radius:10px; transition:.25s;
-      list-style:none; cursor:pointer; display:flex; align-items:center; gap:6px;
+      padding:10px 16px; border-radius:10px;
+      transition:.2s; list-style:none; cursor:pointer;
+      display:flex; align-items:center; gap:8px;
     }
     .navlinks a:hover, .navlinks summary:hover{ background:var(--glass); }
 
-    /* Submenú con details */
+    /* Submenú con <details> (estable en móvil y escritorio) */
     details.dropdown{ position:relative; }
     details.dropdown > summary::-webkit-details-marker{ display:none; }
     .dropdown-content{
-      position:absolute; top:42px; left:0;
-      min-width:280px; padding:10px 0;
+      position:absolute; top:52px; left:0;
+      min-width:300px; padding:12px 0;
       background:rgba(20,20,30,.95);
       border-radius:12px; box-shadow:0 8px 20px rgba(0,0,0,.4);
       display:none; flex-direction:column; z-index:3600;
     }
     details[open] .dropdown-content{ display:flex; }
-    .dropdown-content a{ text-align:center; }
+    .dropdown-content a{ text-align:center; padding:12px 18px; }
+    .dropdown-content a:hover{ background:var(--primary); color:#000; }
 
-    /* Botones */
+    /* Botones destacados */
     .btn-offer,.btn-ruta{
       position:relative; display:inline-block; background:var(--primary); color:#000;
       padding:10px 16px; border-radius:10px; font-weight:700; text-decoration:none;
@@ -99,24 +113,27 @@
     .btn-offer:hover::before,.btn-ruta:hover::before{ left:125%; }
     .btn-offer:hover,.btn-ruta:hover{ background:#fff3b0; transform:scale(1.05); }
 
-    /* ===== Hero ===== */
+    /* ========= HERO ========= */
     .hero{
-      min-height:100vh; display:flex; align-items:center; justify-content:center;
+      min-height:100vh;
+      display:flex; align-items:center; justify-content:center;
       padding:calc(var(--contactH) + var(--navH) + 40px) 20px 60px;
       text-align:center; position:relative; overflow:hidden;
     }
     .hero::before{
       content:""; position:absolute; inset:0;
-      background:linear-gradient(120deg,#0b1220,#1e3c72,#2a5298,#f5b400);
+      background: linear-gradient(120deg, #0b1220, #1e3c72, #2a5298, #f5b400);
       background-size:300% 300%; animation:gm 15s ease-in-out infinite; z-index:-1;
     }
     @keyframes gm{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
     .hero h1{ font-size:2.6rem; margin:.2em 0; color:var(--primary); text-shadow:0 0 15px rgba(245,180,0,.7); font-weight:800; }
 
-    /* ===== Sección ===== */
+    .hero p{ max-width:720px; margin:16px auto; color:var(--muted); }
+
+    /* ========= SECCIONES ========= */
     .section{ padding:80px 20px; }
     .section h2{ font-size:2rem; margin:0 auto 24px; text-align:center; }
-    .grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:18px; width:min(1100px,100%); margin:0 auto; }
+    .grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:18px; width:min(var(--containerW),100%); margin:0 auto; }
     .card{
       background:var(--glass); border:1px solid rgba(255,255,255,.08); border-radius:16px;
       padding:22px; box-shadow:var(--shadow); backdrop-filter:blur(6px);
@@ -124,48 +141,53 @@
     }
     .card:hover{ transform:translateY(-4px); background:rgba(255,255,255,.12); }
 
-    /* ===== Footer ===== */
+    /* ========= FOOTER ========= */
     footer{ border-top:1px solid rgba(255,255,255,.2); padding:20px; text-align:center; color:var(--muted); background:rgba(0,0,0,.3); }
-    footer a{ display:inline-block; margin-top:10px; color:#ffd166; text-decoration:none; font-weight:600; }
+    footer a{ display:inline-block; margin-top:10px; color:#ffd166; text-decoration:none; font-weight:600; transition:.3s; }
     footer a:hover{ color:#fff; text-shadow:0 0 10px rgba(245,180,0,.8); transform:scale(1.05); }
 
-    /* ===== Redes ===== */
+    /* ========= REDES ========= */
     .social-fixed{ position:fixed; bottom:20px; left:20px; display:flex; flex-direction:column; gap:10px; z-index:200; }
     .social-fixed a{ color:#fff; font-size:1.5rem; background:rgba(255,255,255,.1); padding:10px; border-radius:50%; transition:.3s; }
     .social-fixed a:hover{ background:var(--primary); color:#000; transform:scale(1.2); box-shadow:0 0 10px rgba(245,180,0,.8); }
 
-    /* ===== Móvil: checkbox hack para abrir/cerrar ===== */
+    /* ========= MÓVIL: checkbox hack ========= */
     #navchk{ display:none; }
     .menu-toggle{
-      display:none; position:fixed; right:12px; top:calc(var(--contactH) + 12px);
+      display:none; position:fixed; right:16px; top:calc(var(--contactH) + 16px);
       z-index:3400; background:#0f172a; border:2px solid var(--primary); color:#fff;
-      padding:10px 14px; border-radius:12px; font-size:1.4rem; line-height:1; cursor:pointer;
+      padding:12px 18px; border-radius:14px; font-size:1.6rem; line-height:1; cursor:pointer;
       box-shadow:0 8px 24px rgba(0,0,0,.5);
     }
 
     @media (max-width:1024px){
       .menu-toggle{ display:block; }
-      /* Panel móvil a pantalla completa */
+
+      /* Panel móvil ocupa todo el ancho, debajo de barras fijas */
       .navlinks{
         position:fixed; inset:0; top:calc(var(--contactH) + var(--navH));
         background:#0a1224; border-top:2px solid var(--primary);
-        display:none; flex-direction:column; gap:8px; padding:16px; z-index:3300;
-        overflow:auto;
+        display:none; flex-direction:column; gap:12px; padding:20px; z-index:3300; overflow:auto;
+        font-size:1.08rem;
       }
       #navchk:checked ~ nav .navlinks{ display:flex; }
 
-      /* Submenú con details en flujo, sin posición absoluta */
-      .dropdown-content{ position:static; display:none; background:#0d1b3a; border:1px solid rgba(245,180,0,.45); border-radius:10px; padding:8px 6px; margin:6px 0 2px 0; box-shadow:none; }
+      /* Submenús en flujo natural */
+      .dropdown-content{
+        position:static; display:none;
+        background:#0d1b3a; border:1px solid rgba(245,180,0,.45);
+        border-radius:10px; padding:10px 8px; margin:6px 0 2px 0; box-shadow:none;
+      }
       details[open] .dropdown-content{ display:flex; flex-direction:column; }
 
-      /* Desactivar hover-rotaciones que molestan en táctil */
-      .navlinks a:hover, .navlinks summary:hover{ background:rgba(255,255,255,.06); }
+      /* Logo más alto en móvil pero sin recortar */
+      .brand img{ max-height: 82px; }
     }
   </style>
 </head>
 <body>
 
-  <!-- checkbox para controlar apertura del menú móvil -->
+  <!-- Control de menú móvil -->
   <input type="checkbox" id="navchk" aria-hidden="true" />
 
   <!-- Barra de contacto -->
@@ -179,18 +201,20 @@
   <nav class="nav" aria-label="Principal">
     <div class="container">
       <div class="brand">
+        <!-- Logo MEP. Si falla .jpg, usa .png -->
         <img src="LogoMepnew.jpg" alt="Logo MEP" onerror="this.src='LogoMepnew.png'">
       </div>
 
-      <!-- Botón hamburguesa usa label -> checkbox -->
+      <!-- Botón hamburguesa controla el checkbox -->
       <label class="menu-toggle" for="navchk" aria-controls="mainMenu" aria-label="Abrir menú">
         <i class="fa-solid fa-bars"></i>
       </label>
 
+      <!-- Menú de enlaces -->
       <div class="navlinks" id="mainMenu">
         <a href="#">Inicio</a>
 
-        <!-- Ofertas Educativas con <details> -->
+        <!-- Ofertas Educativas -->
         <details class="dropdown">
           <summary>Ofertas Educativas <span class="arrow">▼</span></summary>
           <div class="dropdown-content" id="panel-ofertas">
@@ -214,7 +238,7 @@
         <details class="dropdown">
           <summary>Noticias <span class="arrow">▼</span></summary>
           <div class="dropdown-content">
-            <p>📰 Matrícula abierta desde el mes de <strong>Noviembre</strong></p>
+            <p style="margin:0;padding:8px 12px;text-align:center">📰 Matrícula abierta desde el mes de <strong>Noviembre</strong></p>
           </div>
         </details>
 
@@ -233,7 +257,7 @@
     </div>
   </header>
 
-  <!-- Ofertas -->
+  <!-- Ofertas Educativas -->
   <section class="section" id="modalidades">
     <h2>Ofertas Educativas</h2>
     <div class="grid">
@@ -268,13 +292,13 @@
   </div>
 
   <script>
-    // Año
+    // Año dinámico
     (function(){
       var y = document.getElementById('year');
       if (y) y.textContent = new Date().getFullYear();
     })();
 
-    // Cerrar el panel móvil al hacer clic en cualquier enlace (un toque de amabilidad)
+    // Cerrar panel móvil al tocar un enlace
     document.getElementById('mainMenu').addEventListener('click', function(e){
       const a = e.target.closest('a');
       if(!a) return;
@@ -284,6 +308,7 @@
   </script>
 </body>
 </html>
+
 
 
 
