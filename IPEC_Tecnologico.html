@@ -141,6 +141,26 @@
 
     @media(max-width:920px){.product-content{grid-template-columns:1fr 1fr}}
     @media(max-width:600px){.product-content{grid-template-columns:1fr}}
+
+    /* ===== FIX: desplegables completos y sin corte ===== */
+    .dropdown-menu {
+      /* ajustes de visibilidad y scroll */
+      max-height: 80vh;              /* ocupa hasta 80% de la pantalla */
+      overflow-y: auto;              /* si se pasa, permite scroll interno */
+      overscroll-behavior: contain;  /* evita saltos de scroll en iOS/Android */
+      -webkit-overflow-scrolling: touch; /* scroll suave en iOS */
+    }
+    @media (max-width: 600px) {
+      .dropdown-menu {
+        left: 0;
+        right: 0;
+        width: 92vw;                 /* ancho cómodo en móviles */
+        margin: 0 auto;
+        top: 60px;
+        max-height: 85vh;            /* un poco más alto en móvil */
+        padding: 18px 16px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -267,6 +287,5 @@
   </script>
 </body>
 </html>
-
 
 
