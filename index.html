@@ -299,6 +299,22 @@
       /* Evitar efectos hover en móvil */
       .dropdown:hover .arrow{ transform:none; }
     }
+
+    /* ======== AÑADIDO: soporte táctil forzado ======== */
+    .touch #dd-ofertas > a.dd-link{ display:none; }
+    .touch #dd-ofertas > button.dd-toggle{ display:flex; align-items:center; gap:6px; }
+    .touch #dd-ofertas .dropdown-content{
+      position: static !important;
+      display: none;
+      background:#0d1b3a;
+      border:1px solid rgba(245,180,0,.45);
+      border-radius:10px;
+      padding:8px 6px;
+      margin:6px 0 2px 0;
+      box-shadow:none;
+    }
+    .touch #dd-ofertas.open .dropdown-content{ display:flex !important; flex-direction:column; }
+    /* ======== FIN AÑADIDO ======== */
   </style>
 </head>
 <body>
@@ -417,6 +433,16 @@
       if (y) y.textContent = new Date().getFullYear();
     })();
 
+    // ===== AÑADIDO: detectar entorno táctil y marcar <html> =====
+    (function(){
+      try{
+        if (window.matchMedia && window.matchMedia('(hover: none)').matches) {
+          document.documentElement.classList.add('touch');
+        }
+      }catch(e){}
+    })();
+    // ===== FIN AÑADIDO =====
+
     // Top del panel móvil
     function setMenuTop(){
       var cb = document.querySelector('.contact-bar');
@@ -453,19 +479,25 @@
       if (!mainMenu.contains(e.target) && !menuToggle.contains(e.target)) closeMenu();
     });
 
-    // SOLO Ofertas Educativas: acordeón en móvil
+    // SOLO Ofertas Educativas: acordeón en móvil (robusto)
     (function(){
       var dd = document.getElementById('dd-ofertas');
       if(!dd) return;
-      var btn = dd.querySelector('.dd-toggle');
-      if(!btn) return;
 
-      btn.addEventListener('click', function(e){
-        if (window.innerWidth > 1024) return; // escritorio: no tocar
+      // Delegación de evento para el botón del submenú
+      mainMenu.addEventListener('click', function(e){
+        var btn = e.target.closest('#dd-ofertas .dd-toggle');
+        if(!btn) return;
+
+        // Solo actuar en táctil o en viewport móvil
+        if (!document.documentElement.classList.contains('touch') && window.innerWidth > 1024) return;
+
         e.preventDefault();
+        e.stopPropagation();
         var isOpen = dd.classList.toggle('open');
         btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-        // cerrar otros dropdowns que estén abiertos
+
+        // Cerrar otros dropdowns abiertos
         document.querySelectorAll('.dropdown.open').forEach(function(o){
           if (o !== dd) o.classList.remove('open');
         });
@@ -474,9 +506,10 @@
       // Al tocar un enlace del submenú en móvil, cerrar todo
       document.querySelectorAll('#panel-ofertas a').forEach(function(a){
         a.addEventListener('click', function(){
-          if (window.innerWidth <= 1024) {
+          if (document.documentElement.classList.contains('touch') || window.innerWidth <= 1024) {
             dd.classList.remove('open');
-            btn.setAttribute('aria-expanded','false');
+            var btn = dd.querySelector('.dd-toggle');
+            if (btn) btn.setAttribute('aria-expanded','false');
             closeMenu();
           }
         });
@@ -485,7 +518,7 @@
 
     // Cerrar menú al elegir cualquier enlace (móvil)
     document.querySelectorAll('#mainMenu a').forEach(a=>{
-      a.addEventListener('click', ()=>{ if(window.innerWidth<=1024) closeMenu(); });
+      a.addEventListener('click', ()=>{ if(window.innerWidth<=1024 || document.documentElement.classList.contains('touch')) closeMenu(); });
     });
   </script>
 </body>
